@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
-        $currencyTable = config('database.tables.currency');
-        $unitTable = config('database.tables.units');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
+        $currencyTable = config('pkg-task-ms.tables.currency');
+        $unitTable = config('pkg-task-ms.tables.units');
 
         // work interval
         Schema::create($tablePrefix . 'unit_rates', function (Blueprint $table) use ($currencyTable, $unitTable) {

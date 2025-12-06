@@ -12,22 +12,22 @@ return new class extends Migration
     public function up(): void
     {
 
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $activityTablePrefix = config('pkg-activities.table_prefix');
 
-        // inspectable subjects
+        // inspectable templatables
         Schema::create($tablePrefix . 'activity_templatables', function (Blueprint $table) use ($tablePrefix, $activityTablePrefix) {
-            $table->comment('List of activity templates available for given subject.');
+            $table->comment('List of activity templates available for given templatable.');
             
             $table->id();
             $table->foreignId('template_id')
                 ->nullable()
                 ->comment('')
                 ->constrained($activityTablePrefix . 'activity_templates', 'id');
-            $table->unsignedBigInteger('subject_id')
+            $table->unsignedBigInteger('templatable_id')
                 ->nullable()
-                ->comment('Single subject bound to this activiy template. E.g. vehicle model, ...');
-            $table->string('subject_type')
+                ->comment('Single templatable bound to this activiy template. E.g. vehicle model, ...');
+            $table->string('templatable_type')
                 ->nullable()
                 ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
 
@@ -41,7 +41,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'activity_templatables');
     }

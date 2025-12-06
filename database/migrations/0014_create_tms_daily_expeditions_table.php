@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $fleetTablePrefix = config('pkg-fleet.table_prefix');
 
         Schema::create($tablePrefix . 'daily_expeditions', function (Blueprint $table) use ($fleetTablePrefix) {
@@ -34,7 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         Schema::dropIfExists($tablePrefix . 'daily_expeditions');
     }
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
 use Dpb\Package\Inspections\Models\InspectionTemplate;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class InspectionTemplateAssignment extends Model
+class InspectionTemplatable extends Model
 {
     use SoftDeletes;
 
@@ -19,8 +19,8 @@ class InspectionTemplateAssignment extends Model
      */
     protected $fillable = [
         'template_id',
-        'subject_id',
-        'subject_type',
+        'templatable_id',
+        'templatable_type',
     ];
 
     public function getTable()
@@ -33,7 +33,7 @@ class InspectionTemplateAssignment extends Model
         return $this->belongsTo(InspectionTemplate::class);
     } 
 
-    public function subject(): MorphTo
+    public function templatable(): MorphTo
     {
         return $this->morphTo();
     }    

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $incidentTablePrefix = config('pkg-incidents.table_prefix');
 
         // incident bindings
@@ -49,7 +49,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'incident_assignments');
     }

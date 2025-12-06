@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $ticketTablePrefix = config('pkg-tickets.table_prefix');
 
         // ticket bindings
@@ -45,10 +45,14 @@ return new class extends Migration
                 ->nullable(false)
                 ->comment('User that created ticket')
                 ->constrained('users');
-            $table->foreignId('assigned_to')
+            // entity responsible e.g. maintenance group, department, ...
+            $table->unsignedBigInteger('assigned_to_id')
                 ->nullable()
-                ->comment("User responsible for ticket")
-                ->constrained('users');
+                ->comment('Entity responsible for this ticket item e.g. maintenance group, department, ...');
+            $table->string('assigned_to_type')
+                ->nullable()
+                ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -66,7 +70,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'ticket_assignments');
     }

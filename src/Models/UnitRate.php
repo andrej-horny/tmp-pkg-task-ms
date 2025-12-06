@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
 use Dpb\Packages\Utils\Models\Currency;
 use Dpb\Packages\Utils\Models\MeasurementUnit;

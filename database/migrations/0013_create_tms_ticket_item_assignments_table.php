@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $ticketTablePrefix = config('pkg-tickets.table_prefix');
 
         // ticket bindings
@@ -53,7 +53,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'ticket_item_assignments');
     }

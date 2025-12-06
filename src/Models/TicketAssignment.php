@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
-use App\Models\Datahub\Department;
-use App\Models\Datahub\EmployeeContract;
+use Dpb\Package\TaskMS\Models\Datahub\Department;
+use Dpb\Package\TaskMS\Models\Datahub\EmployeeContract;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketItem;
 use Illuminate\Database\Eloquent\Model;

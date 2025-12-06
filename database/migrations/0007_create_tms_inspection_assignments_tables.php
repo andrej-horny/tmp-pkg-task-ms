@@ -11,37 +11,37 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         $inspectionTablePrefix = config('pkg-inspections.table_prefix');
 
-        // inspectable subjects
+        // inspectable templatables
         Schema::create($tablePrefix . 'inspection_assignments', function (Blueprint $table) use ($inspectionTablePrefix) {
             $table->id();
             $table->foreignId('inspection_id')
                 ->nullable(false)
                 ->comment('')
                 ->constrained($inspectionTablePrefix . 'inspections');
-            $table->unsignedBigInteger('subject_id')
+            $table->unsignedBigInteger('templatable_id')
                 ->nullable(false)
                 ->comment('');
-            $table->string('subject_type')
+            $table->string('templatable_type')
                 ->nullable(false)
                 ->comment('');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        // inspectable subjects
+        // inspectable templatables
         Schema::create($tablePrefix . 'inspection_templatables', function (Blueprint $table) use ($tablePrefix, $inspectionTablePrefix) {
             $table->id();
             $table->foreignId('template_id')
                 ->nullable()
                 ->comment('')
                 ->constrained($inspectionTablePrefix . 'inspection_templates', 'id');
-            $table->unsignedBigInteger('subject_id')
+            $table->unsignedBigInteger('templatable_id')
                 ->nullable()
-                ->comment('Single subject bound to this inspection template. E.g. vehicle model, ...');
-            $table->string('subject_type')
+                ->comment('Single templatable bound to this inspection template. E.g. vehicle model, ...');
+            $table->string('templatable_type')
                 ->nullable()
                 ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
 
@@ -55,7 +55,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         Schema::dropIfExists($tablePrefix . 'inspection_assignments');
         Schema::dropIfExists($tablePrefix . 'inspection_templatables');

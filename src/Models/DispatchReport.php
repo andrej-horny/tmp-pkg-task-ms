@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;

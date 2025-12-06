@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
-use App\Models\Datahub\EmployeeContract;
+use Dpb\Package\TaskMS\Models\Datahub\EmployeeContract;
 use Dpb\Packages\WorkLog\Models\WorkInterval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

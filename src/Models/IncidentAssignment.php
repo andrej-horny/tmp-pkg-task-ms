@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Dpb\Package\TaskMS\Models;
 
 use Dpb\Package\Incidents\Models\Incident;
 use Illuminate\Database\Eloquent\Model;

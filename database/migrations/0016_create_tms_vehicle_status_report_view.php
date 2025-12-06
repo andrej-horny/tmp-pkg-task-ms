@@ -10,7 +10,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
 
         DB::statement("
             CREATE VIEW " . $tablePrefix . "vw_vehicle_status_report AS
@@ -35,7 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tablePrefix = config('database.table_prefix');
+        $tablePrefix = config('pkg-task-ms.table_prefix');
         DB::statement("DROP VIEW IF EXISTS " . $tablePrefix . "vw_vehicle_status_report");
     }
 };
