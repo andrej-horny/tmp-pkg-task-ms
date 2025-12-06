@@ -28,7 +28,7 @@ class InspectionAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'inspection_assignments';
+        return config('pkg-task-ms.table_prefix') . 'inspection_assignments';
     }
 
     public function inspection(): BelongsTo

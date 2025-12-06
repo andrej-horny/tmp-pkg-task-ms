@@ -28,7 +28,7 @@ class UnitRate extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'unit_rates';
+        return config('pkg-task-ms.table_prefix') . 'unit_rates';
     }
 
     /**

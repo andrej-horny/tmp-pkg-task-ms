@@ -29,37 +29,16 @@ return new class extends Migration
             $table->string('subject_type')
                 ->nullable()
                 ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
-            // source
-            $table->unsignedBigInteger('source_id')
-                ->nullable(false)
-                ->comment('Source of ticket. E.g. daily maintenance, crash report, manual ...');
-            $table->string('source_type')
-                ->nullable(false)
-                ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
-            // department
-            $table->foreignId('department_id')
-                ->nullable()
-                ->comment('Department this ticket will be hadled for.')
-                ->constrained('datahub_departments');
             $table->foreignId('author_id')
                 ->nullable(false)
                 ->comment('User that created ticket')
                 ->constrained('users');
-            // entity responsible e.g. maintenance group, department, ...
-            $table->unsignedBigInteger('assigned_to_id')
-                ->nullable()
-                ->comment('Entity responsible for this ticket item e.g. maintenance group, department, ...');
-            $table->string('assigned_to_type')
-                ->nullable()
-                ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
-
             $table->timestamps();
             $table->softDeletes();
         });
 
         // add indexes for polymorphic relations
         Schema::table($tablePrefix . 'ticket_assignments', function (Blueprint $table) use ($ticketTablePrefix) {
-            $table->index(['source_type', 'source_id']);
             $table->index(['subject_type', 'subject_id']);
         });
 

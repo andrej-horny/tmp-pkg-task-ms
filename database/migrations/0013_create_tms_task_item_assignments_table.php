@@ -12,38 +12,38 @@ return new class extends Migration
     public function up(): void
     {
         $tablePrefix = config('pkg-task-ms.table_prefix');
-        $ticketTablePrefix = config('pkg-tickets.table_prefix');
+        $taskTablePrefix = config('pkg-tasks.table_prefix');
 
-        // ticket bindings
-        Schema::create($tablePrefix . 'ticket_item_assignments', function (Blueprint $table) use ($ticketTablePrefix) {
-            $table->comment("Relations binding ticket items to other domains");
+        // task bindings
+        Schema::create($tablePrefix . 'task_item_assignments', function (Blueprint $table) use ($taskTablePrefix) {
+            $table->comment("Relations binding task items to other domains");
             $table->id();
-            $table->foreignId('ticket_item_id')
+            $table->foreignId('task_item_id')
                 ->nullable(false)
                 ->comment('')
-                ->constrained($ticketTablePrefix . 'ticket_items', 'id');
+                ->constrained($taskTablePrefix . 'task_items', 'id');
             // entity responsible e.g. maintenance group, department, ...
             $table->unsignedBigInteger('assigned_to_id')
                 ->nullable()
-                ->comment('Entity responsible for this ticket item e.g. maintenance group, department, ...');
+                ->comment('Entity responsible for this task item e.g. maintenance group, department, ...');
             $table->string('assigned_to_type')
                 ->nullable()
                 ->comment("Class of related polymorphic record. Determines respective database table holding records of this type.");
             $table->foreignId('author_id')
                 ->nullable(false)
-                ->comment('User that created ticket item')
+                ->comment('User that created task item')
                 ->constrained('users');
             $table->foreignId('supervised_by')
                 ->nullable()
-                ->comment("User responsible for ticket item")
+                ->comment("User responsible for task item")
                 ->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });
 
         // add indexes for polymorphic relations
-        Schema::table($tablePrefix . 'ticket_item_assignments', function (Blueprint $table) use ($ticketTablePrefix) {
-            $table->index(['assigned_to_id', 'assigned_to_type'], 'idx_ticket_item_assigned_to');
+        Schema::table($tablePrefix . 'task_item_assignments', function (Blueprint $table) use ($taskTablePrefix) {
+            $table->index(['assigned_to_id', 'assigned_to_type'], 'idx_task_item_assigned_to');
         });
 
     }
@@ -55,6 +55,6 @@ return new class extends Migration
     {
         $tablePrefix = config('pkg-task-ms.table_prefix');
 
-        Schema::dropIfExists($tablePrefix . 'ticket_item_assignments');
+        Schema::dropIfExists($tablePrefix . 'task_item_assignments');
     }
 };

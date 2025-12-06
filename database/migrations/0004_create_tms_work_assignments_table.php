@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         $tablePrefix = config('pkg-task-ms.table_prefix');
+        $wlTablePrefix = config('pkg-work-log.table_prefix');
 
-        Schema::create($tablePrefix . 'work_assignments', function (Blueprint $table) {
+        Schema::create($tablePrefix . 'work_assignments', function (Blueprint $table) use ($wlTablePrefix) {
             $table->id();
             $table->foreignId('work_interval_id')
                 ->nullable(false)
                 ->comment('')
-                ->constrained('wl_work_intervals');
+                ->constrained($wlTablePrefix . 'work_intervals');
             $table->unsignedBigInteger('subject_id')
                 ->nullable(false)
                 ->comment('');

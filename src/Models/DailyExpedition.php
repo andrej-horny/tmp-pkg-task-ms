@@ -31,7 +31,7 @@ class DailyExpedition extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'daily_expeditions';
+        return config('pkg-task-ms.table_prefix') . 'daily_expeditions';
     }
 
     public function vehicle(): BelongsTo

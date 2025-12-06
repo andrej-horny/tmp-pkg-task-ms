@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         $tablePrefix = config('pkg-task-ms.table_prefix');
+        $activityTablePrefix = config('pkg-activities.table_prefix');
 
-        Schema::create($tablePrefix . 'activity_assignments', function (Blueprint $table) {
+        Schema::create($tablePrefix . 'activity_assignments', function (Blueprint $table) use ($activityTablePrefix) {
             $table->id();
             $table->foreignId('activity_id')
                 ->nullable(false)
                 ->comment('')
-                ->constrained('act_activities');
+                ->constrained($activityTablePrefix . 'activities');
             $table->unsignedBigInteger('subject_id')
                 ->nullable(false)
                 ->comment('');

@@ -14,7 +14,7 @@ class WorkAssignment extends Model
 
     public function getTable(): string
     {
-        return config('database.table_prefix') . 'work_assignments';
+        return config('pkg-task-ms.table_prefix') . 'work_assignments';
     }
 
     public function subject(): MorphTo

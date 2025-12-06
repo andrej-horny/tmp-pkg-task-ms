@@ -2,15 +2,15 @@
 
 namespace Dpb\Package\TaskMS\Models;
 
-use Dpb\Package\Tickets\Models\Ticket;
-use Dpb\Package\Tickets\Models\TicketItem;
+use Dpb\Package\Tasks\Models\Task;
+use Dpb\Package\Tasks\Models\TaskItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TicketItemAssignment extends Model
+class TaskItemAssignment extends Model
 {
     use SoftDeletes;
 
@@ -20,7 +20,7 @@ class TicketItemAssignment extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'ticket_item_id',
+        'task_item_id',
         'assigned_to_id',
         'assigned_to_type',
         'author_id',
@@ -29,24 +29,24 @@ class TicketItemAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'ticket_item_assignments';
+        return config('pkg-task-ms.table_prefix') . 'task_item_assignments';
     }
 
-    public function ticket(): HasOneThrough
+    public function task(): HasOneThrough
     {
         return $this->hasOneThrough(
-            Ticket::class,   // final model you want
-            TicketItem::class,   // intermediate model
+            Task::class,   // final model you want
+            TaskItem::class,   // intermediate model
             'id',  // foreign key on intermediate model (users.country_id)
-            'ticket_id',     // foreign key on final model (posts.user_id)
-            'ticket_id',          // local key on this model (countries.id)
+            'task_id',     // foreign key on final model (posts.user_id)
+            'task_id',          // local key on this model (countries.id)
             'id'           // local key on intermediate model (users.id)
         );
     }
 
-    public function ticketItem(): BelongsTo
+    public function taskItem(): BelongsTo
     {
-        return $this->belongsTo(TicketItem::class, "ticket_item_id");
+        return $this->belongsTo(TaskItem::class, "task_item_id");
     }
 
     public function author(): BelongsTo

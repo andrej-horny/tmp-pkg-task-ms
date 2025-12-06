@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $ticketTablePrefix = config('pkg-tickets.table_prefix');
+        $taskTablePrefix = config('pkg-tasks.table_prefix');
 
-        Schema::create('app_expenses_materials', function (Blueprint $table) use ($ticketTablePrefix) {
+        Schema::create('app_expenses_materials', function (Blueprint $table) use ($taskTablePrefix) {
             $table->id();
 
             $table->date('date')
@@ -28,16 +28,16 @@ return new class extends Migration
             $table->decimal('vat')
                 ->nullable()
                 ->comment('VAT in percent');
-            $table->foreignId('ticket_id')
+            $table->foreignId('task_id')
                 ->nullable()
                 ->comment('Ticket this material was used on.')
-                ->constrained($ticketTablePrefix . 'tickets', 'id');
+                ->constrained($taskTablePrefix . 'tasks', 'id');
 
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('app_expenses_services', function (Blueprint $table) use ($ticketTablePrefix) {
+        Schema::create('app_expenses_services', function (Blueprint $table) use ($taskTablePrefix) {
             $table->id();
 
             $table->date('date')
@@ -52,10 +52,10 @@ return new class extends Migration
             $table->decimal('vat')
                 ->nullable()
                 ->comment('VAT in percent');
-            $table->foreignId('ticket_id')
+            $table->foreignId('task_id')
                 ->nullable()
                 ->comment('VAT in percent')
-                ->constrained($ticketTablePrefix . 'tickets', 'id');
+                ->constrained($taskTablePrefix . 'tasks', 'id');
 
             $table->timestamps();
             $table->softDeletes();

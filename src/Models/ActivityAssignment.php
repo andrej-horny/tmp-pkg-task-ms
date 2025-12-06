@@ -25,7 +25,7 @@ class ActivityAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'activity_assignments';
+        return config('pkg-task-ms.table_prefix') . 'activity_assignments';
     }
 
     public function activity(): BelongsTo 

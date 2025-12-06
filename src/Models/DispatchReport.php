@@ -29,7 +29,7 @@ class DispatchReport extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'dispatch_reports';
+        return config('pkg-task-ms.table_prefix') . 'dispatch_reports';
     }    
 
     public function author(): BelongsTo 

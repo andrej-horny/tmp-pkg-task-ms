@@ -29,7 +29,7 @@ class ActivityTemplatable extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'activity_templatables';
+        return config('pkg-task-ms.table_prefix') . 'activity_templatables';
     }
 
     public function template(): BelongsTo

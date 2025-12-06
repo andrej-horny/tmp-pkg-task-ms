@@ -7,6 +7,6 @@ return [
     | Default database table prefix used for package migrations
     |--------------------------------------------------------------------------
     */
-    'table_prefix' => 'act_',
+    'table_prefix' => 'tms_',
 
 ];

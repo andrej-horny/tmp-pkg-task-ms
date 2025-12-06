@@ -15,9 +15,9 @@ class TaskMSServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasMigrations([
                 '0001_create_tms_expenses_tables',
-                '0002_create_tms_unit_rates_table',
+                // '0002_create_tms_unit_rates_table',
                 '0003_create_tms_activity_assignments_table',
-                '0004_create_tms_work_assignments_table',
+                // '0004_create_tms_work_assignments_table',
                 '0006_create_tms_department_assignments_table',
                 '0007_create_tms_inspection_assignments_table',
                 '0009_create_tms_ticket_assignments_table',
@@ -37,10 +37,14 @@ class TaskMSServiceProvider extends PackageServiceProvider
                         $command->call('pkg-tickets:install');
                         $command->info('Installing pkg-inspections...');
                         $command->call('pkg-inspections:install');
-                    })                
+                        $command->info('Installing pkg-activities...');
+                        $command->call('pkg-activities:install');
+                        $command->info('Installing pkg-fleet...');
+                        $command->call('pkg-fleet:install');
+                    })
                     ->publishMigrations()
                     ->publishConfigFile()
                     ->askToRunMigrations();
             });
-    }    
+    }
 }

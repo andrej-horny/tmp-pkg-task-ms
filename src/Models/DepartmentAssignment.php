@@ -25,7 +25,7 @@ class DepartmentAssignment extends Model
 
     public function getTable()
     {
-        return config('database.table_prefix') . 'department_assignments';
+        return config('pkg-task-ms.table_prefix') . 'department_assignments';
     }
 
     public function department(): BelongsTo 
