@@ -1,5 +1,5 @@
 {
-    "name": "dpb/pkg-task-ms",
+    "name": "andrej-horny/tmp-pkg-task-ms",
     "type": "package",
     "license": "proprietary",
     "autoload": {
@@ -27,7 +27,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dpb\\Package\\TaskMS\\Providers\\TaskMSServiceProvider"
+                "Dpb\\Package\\TaskMS\\Providers\\TaskMSServiceProvider",
+                "Dpb\\Package\\TaskMS\\Providers\\TaskMSFilamentPanelProvider"
             ]
         }
     }

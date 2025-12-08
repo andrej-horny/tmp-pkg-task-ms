@@ -1,12 +1,12 @@
 <?php
 
-namespace App\States\Fleet\Vehicle;
+namespace Dpb\Package\TaskMS\States\Fleet\Vehicle;
 
  class WarrantyClaim extends VehicleState
 {
     public static $name = "warranty-claim";
 
     public function label():string {
-        return __('fleet/vehicle.states.warranty-claim');
+        return __('tms-ui::fleet/vehicle.states.warranty-claim');
     }
 }

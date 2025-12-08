@@ -1,0 +1,88 @@
+<?php
+
+return [
+    'create_heading' => 'Vytvoriť podzákazku',
+    'list_heading' => 'Podzákazky',
+    'update_heading' => 'Upraviť podzákazku: :code :subject',
+    'form' => [
+        'fields' => [
+            'code' => [
+                'label' => 'Kód',
+                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+            ],
+            'date' => 'Dátum',
+            'title' => 'Názov',
+            // 'title' => 'Detail poruchy',
+            'group' => 'Detail poruchy',
+            'description' => 'Popis',
+            'source' => 'Miesto výskytu',
+            'subject' => 'Vozidlo',
+            'ticket' => 'Zákazka',
+            'state' => 'Stav',
+            'assigned_to' => 'Technická prevádzka',
+            'activities' => [
+                'title' => 'Normy',
+                'date' => 'Dátum',
+                'template' => 'Norma',
+                'work_log' => [
+                    'title' => 'Pracovné výkony',
+                    'date' => 'Dátum',
+                    'time_from' => 'Od',
+                    'time_to' => 'Do',
+                    'contract' => 'Úväzok',
+                ]
+            ],
+        ],
+        'tabs' => [
+            'activities' => 'Práca',
+            'materials' => 'Materiál',
+            'services' => 'Služby',
+            'history' => 'História',
+            'comments' => 'Komentáre',
+        ]
+    ],
+    'table' => [
+        'heading' => 'Podzakázky',
+        'empty_state_heading' => 'Žiadne podzákazky na zobrazenie',
+        'row_groups' => [
+        ],
+        'columns' => [
+            'id' => 'ID',
+            'code' => 'Kód',
+            'date' => 'Dátum',
+            // 'title' => 'Názov',
+            'title' => 'Názov',
+            'group' => 'Detail poruchy',
+            'description' => 'Popis',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
+            'ticket' => 'Zákazka',
+            'assigned_to' => [
+                'label' => 'TP',
+                'tooltip' => 'Technická prevádzka'
+            ],
+            'activities' => [
+                'label' => 'Normy',
+                'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
+            ],
+            'source' => 'Miesto výskytu',
+            'expenses' => 'Náklady'
+        ]
+    ],
+    'navigation' => [
+        'label' => 'Podzákazky',
+        'group' => 'Zákazky',
+    ],
+    'resource' => [
+        'model_label' => 'Podzákazka',
+        'plural_model_label' => 'Podzákazky',
+    ],
+    'states' => [
+        'created' => 'Nová',
+        'cancelled' => 'Zrušená',
+        'closed' => 'Uzavretá',
+        'in-progress' => 'V riešení',
+        'awaiting-parts' => 'Čaká na ND',
+    ]
+];

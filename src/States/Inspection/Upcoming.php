@@ -1,8 +1,8 @@
 <?php
 
-namespace App\States\Inspection;
+namespace Dpb\Package\TaskMS\States\Inspection;
 
-use App\States\Inspection\InspectionState;
+use Dpb\Package\TaskMS\States\Inspection\InspectionState;
 
  class Upcoming extends InspectionState
 {

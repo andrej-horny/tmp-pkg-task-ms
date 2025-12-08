@@ -1,44 +1,44 @@
 <?php
 
-namespace App\Repositories;
+namespace Dpb\Package\TaskMS\Repositories;
 
-use App\Data\Ticket\TicketAssignmentData;
-use App\Mappers\Ticket\TicketAssignmentMapper;
-use App\Mappers\Ticket\TicketMapper;
-use App\Models\TicketAssignment;
+use Dpb\Package\TaskMS\Data\Task\TaskAssignmentData;
+use Dpb\Package\TaskMS\MDpb\Package\TaskMSers\Task\TaskAssignmentMDpb\Package\TaskMSer;
+use Dpb\Package\TaskMS\MDpb\Package\TaskMSers\Task\TaskMDpb\Package\TaskMSer;
+use Dpb\Package\TaskMS\Models\TaskAssignment;
 
-class TicketAssignmentRepository
+class TaskAssignmentRepository
 {
     public function __construct(
-        private TicketAssignment $eloquentModel,
-        private TicketMapper $ticketMapper,
-        private TicketAssignmentMapper $ticketAssignmentMapper
+        private TaskAssignment $eloquentModel,
+        private TaskMDpb\Package\TaskMSer $taskMDpb\Package\TaskMSer,
+        private TaskAssignmentMDpb\Package\TaskMSer $taskAssignmentMDpb\Package\TaskMSer
         ) {}
 
-    public function findById(int $id): ?TicketAssignment
+    public function findById(int $id): ?TaskAssignment
     {
         $model = $this->eloquentModel->findOrFail($id);
 
         return $model;
     }
 
-    public function save(TicketAssignmentData $ticketAssignmentData): ?TicketAssignment
+    public function save(TaskAssignmentData $taskAssignmentData): ?TaskAssignment
     {
-        // create ticket
-        $ticket = $this->ticketMapper->toEloquent($ticketAssignmentData->ticket);
-        $ticket->save();
+        // create task
+        $task = $this->taskMDpb\Package\TaskMSer->toEloquent($taskAssignmentData->task);
+        $task->save();
 
-        $ticketAssignment = $this->ticketAssignmentMapper->toEloquent($ticketAssignmentData);
-        // dd($ticketAssignment);
-        $ticketAssignment->ticket()->associate($ticket);
-        $ticketAssignment->save();
+        $taskAssignment = $this->taskAssignmentMDpb\Package\TaskMSer->toEloquent($taskAssignmentData);
+        // dd($taskAssignment);
+        $taskAssignment->task()->associate($task);
+        $taskAssignment->save();
 
-        return $ticketAssignment;
+        return $taskAssignment;
     }
 
-    public function push(TicketAssignment $ticketAssignment): ?TicketAssignment
+    public function push(TaskAssignment $taskAssignment): ?TaskAssignment
     {
-        $ticketAssignment->push();
-        return $ticketAssignment;
+        $taskAssignment->push();
+        return $taskAssignment;
     }    
 }

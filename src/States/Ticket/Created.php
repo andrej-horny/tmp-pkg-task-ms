@@ -1,8 +1,8 @@
 <?php
 
-namespace App\States\Ticket;
+namespace Dpb\Package\TaskMS\States\Ticket;
 
-use App\States\Ticket\TicketState;
+use Dpb\Package\TaskMS\States\Ticket\TicketState;
 
 class Created extends TicketState
 {
@@ -10,6 +10,6 @@ class Created extends TicketState
 
     public function label(): string
     {
-        return __('tickets/ticket.states.created');
+        return __('tms-ui::tickets/ticket.states.created');
     }
 }

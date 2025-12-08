@@ -1,12 +1,12 @@
 <?php
 
-namespace App\States\TS\TaskItem;
+namespace Dpb\Package\TaskMS\States\Task\TaskItem;
 
  class Closed extends TaskItemState
 {
     public static $name = "closed";
 
     public function label():string {
-        return __('tasks/task-item.states.closed');
+        return __('tms-ui::tasks/task-item.states.closed');
     }    
 }

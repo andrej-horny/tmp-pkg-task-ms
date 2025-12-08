@@ -1,6 +1,6 @@
 <?php
 
-namespace App\States\Ticket;
+namespace Dpb\Package\TaskMS\States\Ticket;
 
 use Dpb\Package\Tickets\States\TicketState as BaseTicketState;
 use Spatie\ModelStates\StateConfig;

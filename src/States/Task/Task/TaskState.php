@@ -1,9 +1,9 @@
 <?php
 
-namespace App\States\TS\Task;
+namespace Dpb\Package\TaskMS\States\Task\Task;
 
-use App\StateTransitions\TS\Task\CreatedToInProgress;
-use App\StateTransitions\TS\Task\InProgressToCancelled;
+use Dpb\Package\TaskMS\StateTransitions\Task\Task\CreatedToInProgress;
+use Dpb\Package\TaskMS\StateTransitions\Task\Task\InProgressToCancelled;
 use Dpb\Package\Tasks\States\TaskState as BaseTaskState;
 use Spatie\ModelStates\StateConfig;
 

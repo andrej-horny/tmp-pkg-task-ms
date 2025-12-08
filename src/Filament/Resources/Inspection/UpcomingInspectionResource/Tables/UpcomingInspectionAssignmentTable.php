@@ -1,0 +1,97 @@
+<?php
+
+namespace Dpb\Package\TaskMS\Filament\Resources\Inspection\UpcomingInspectionResource\Tables;
+
+use Dpb\Package\TaskMS\Filament\Resources\TS\TicketResource;
+use Dpb\Package\TaskMS\Models\InspectionAssignment;
+use Dpb\Package\TaskMS\Services\Fleet\VehicleService;
+use Dpb\Package\TaskMS\Services\Inspection\CreateTicketService;
+use Dpb\Package\TaskMS\Services\Inspection\AssignmentService as InspectionAssignmentService;
+use Dpb\Package\TaskMS\Services\TS\TicketAssignmentService;
+use Dpb\Package\TaskMS\States;
+use Dpb\Package\Inspections\Models\Inspection;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
+
+class UpcomingInspectionAssignmentTable
+{
+    public static function make(Table $table): Table
+    {
+        return $table
+            ->heading(__('inspections/upcoming-inspection.table.heading'))
+            ->paginated([10, 25, 50, 100, 'all'])
+            ->defaultPaginationPageOption(100)
+            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+                States\Inspection\Upcoming::$name => 'bg-blue-200',
+                States\Inspection\InProgress::$name => 'bg-yellow-200',
+                default => null,
+            })
+            ->columns([
+                // date
+                Tables\Columns\TextColumn::make('inspection.date')
+                    ->date('j.n.Y')
+                    ->label(__('inspections/upcoming-inspection.table.columns.date.label')),
+                // subject
+                Tables\Columns\TextColumn::make('subject')
+                    ->label(__('inspections/upcoming-inspection.table.columns.subject.label'))
+                    ->state(function ($record, InspectionAssignmentService $svc) {
+                        return $svc->getSubject($record->inspection)?->code?->code;
+                    }),
+                // inspection template
+                Tables\Columns\TextColumn::make('inspection.template.title')
+                    ->label(__('inspections/upcoming-inspection.table.columns.template.label')),
+                // Tables\Columns\TextColumn::make('state')
+                //     ->label(__('inspections/upcoming-inspection.table.columns.state.label'))
+                // ->state(fn(Inspection $record) => $record?->state?->label()),
+                // maintenance group
+                Tables\Columns\TextColumn::make('subject.maintenanceGroup.code')
+                    ->label(__('inspections/upcoming-inspection.table.columns.maintenance_group.label'))
+                    ->tooltip(__('inspections/upcoming-inspection.table.columns.maintenance_group.tooltip')),
+                // note
+                Tables\Columns\TextColumn::make('inspection.note')
+                    ->label(__('inspections/upcoming-inspection.table.columns.note.label')),
+                // distance traveled
+                Tables\Columns\TextColumn::make('distance_traveled')
+                    ->label(__('inspections/upcoming-inspection.table.columns.distance_traveled.label'))
+                    ->state(function ($record, VehicleService $vehicleSvc, InspectionAssignmentService $assignmentSvc) {
+                        $vehicle = $assignmentSvc->getSubject($record->inspection);
+                        if ($vehicle !== null) {
+                            return round($vehicleSvc->getInspectionDistanceTraveled($vehicle), 2);
+                        }
+                    }),
+                Tables\Columns\TextColumn::make('due_distance')
+                    ->label(__('inspections/upcoming-inspection.table.columns.due_distance.label')),
+                Tables\Columns\TextColumn::make('km_to_due_distance')
+                    ->label(__('inspections/upcoming-inspection.table.columns.km_to_due_distance.label')),
+                Tables\Columns\TextColumn::make('due_date')
+                    ->label(__('inspections/upcoming-inspection.table.columns.due_date.label')),
+                Tables\Columns\TextColumn::make('days_to_due_date')
+                    ->label(__('inspections/upcoming-inspection.table.columns.days_to_due_date.label')),
+                // link to ticket
+                // Tables\Columns\TextColumn::make('ticket')
+                //     ->label('ticket')
+                //     ->formatStateUsing(fn ($state) => $state?->title)
+                //     ->url(fn ($record) => $record
+                //     ? TicketResource::getUrl('edit', ['record' => 1])
+                //     : null
+                // ),
+            ])
+            ->filters(UpcomingInspectionAssignmentTableFilters::make())
+            ->actions([
+                CreateTicketAction::make('create_ticket')
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    // Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\Action::make('bulk_create_tickets')
+                        ->label(__('inspections/upcoming-inspection.table.actions.bulk_create_tickets'))
+                        ->action(function (Collection $records, CreateTicketService $createTicketService) {
+                            foreach ($records as $record) {
+                                $createTicketService->createTicket($record);
+                            }
+                        })
+                ]),
+            ]);
+    }
+}

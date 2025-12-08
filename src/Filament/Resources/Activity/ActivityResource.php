@@ -1,0 +1,77 @@
+<?php
+
+namespace Dpb\Package\TaskMS\Filament\Resources\Activity;
+
+use Dpb\Package\TaskMS\Filament\Resources\Activity\ActivityResource\Pages;
+use Dpb\Package\TaskMS\Filament\Resources\Activity\ActivityResource\RelationManagers;
+use Dpb\Package\TaskMS\Filament\Resources\Activity\ActivityResource\Tables\ActivityAssignmentTable;
+use Dpb\Package\TaskMS\Filament\Resources\Activity\ActivityResource\Tables\ActivityTable;
+use Dpb\Package\TaskMS\Models\ActivityAssignment;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables\Table;
+
+class ActivityResource extends Resource
+{
+    protected static ?string $model = ActivityAssignment::class;
+
+    public static function getModelLabel(): string
+    {
+        return __('activities/activity.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('activities/activity.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('activities/activity.navigation.label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('activities/activity.navigation.group');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('pkg-activities.navigation.activity') ?? 999;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('activities.activity.read');
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                //
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return ActivityAssignmentTable::make($table);
+        // return ActivityTable::make($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListActivities::route('/'),
+            'create' => Pages\CreateActivity::route('/create'),
+            'edit' => Pages\EditActivity::route('/{record}/edit'),
+        ];
+    }
+}

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\States\TS\TaskItem;
+namespace Dpb\Package\TaskMS\States\Task\TaskItem;
 
  class Cancelled extends TaskItemState
 {
     public static $name = "cancelled";
 
     public function label():string {
-        return __('tasks/task-item.states.cancelled');
+        return __('tms-ui::tasks/task-item.states.cancelled');
     }    
 }

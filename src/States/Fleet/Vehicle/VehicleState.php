@@ -1,9 +1,9 @@
 <?php
 
-namespace App\States\Fleet\Vehicle;
+namespace Dpb\Package\TaskMS\States\Fleet\Vehicle;
 
-use App\StateTransitions\Fleet\Vehicle\DiscardedToInService;
-use App\StateTransitions\Fleet\Vehicle\InServiceToDiscarded;
+use Dpb\Package\TaskMS\StateTransitions\Fleet\Vehicle\DiscardedToInService;
+use Dpb\Package\TaskMS\StateTransitions\Fleet\Vehicle\InServiceToDiscarded;
 use Dpb\Package\Fleet\States\VehicleState as BaseVehicleState;
 use Spatie\ModelStates\StateConfig;
 

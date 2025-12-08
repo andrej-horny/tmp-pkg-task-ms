@@ -1,8 +1,8 @@
 <?php
 
-namespace App\States\Inspection;
+namespace Dpb\Package\TaskMS\States\Inspection;
 
-use App\States\Inspection\Upcoming;
+use Dpb\Package\TaskMS\States\Inspection\Upcoming;
 use Dpb\Package\Inspections\States\InspectionState as BaseInspectionState;
 use Spatie\ModelStates\StateConfig;
 
