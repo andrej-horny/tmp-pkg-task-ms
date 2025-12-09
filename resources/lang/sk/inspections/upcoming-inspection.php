@@ -39,8 +39,13 @@ return [
             'due_date' => ['label' => 'Dátum kontroly'],
             'days_to_due_date' => ['label' => 'Dní do kontroly'],
         ],
+        'filters' => [
+            'date' => 'Dátum',
+            'subject' => 'Vozidlo',
+        ],
         'actions' => [
             'create_ticket' => 'Vyvoriť zákazku',
+            'bulk_create_tickets' => 'Vyvoriť zákazky',
         ]
     ],
     'navigation' => [

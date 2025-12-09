@@ -16,22 +16,22 @@ class InspectionTemplateGroupResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('inspections/inspection-template-group.resource.model_label');
+        return __('tms-ui::inspections/inspection-template-group.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('inspections/inspection-template-group.resource.plural_model_label');
+        return __('tms-ui::inspections/inspection-template-group.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('inspections/inspection-template-group.navigation.label');
+        return __('tms-ui::inspections/inspection-template-group.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('inspections/inspection-template-group.navigation.group');
+        return __('tms-ui::inspections/inspection-template-group.navigation.group');
     }
 
     public static function getNavigationSort(): ?int
@@ -39,10 +39,10 @@ class InspectionTemplateGroupResource extends Resource
         return config('pkg-inspections.navigation.inspection-template-group') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('inspections.inspection-template-group.read');
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('inspections.inspection-template-group.read');
+    // }
 
     public static function form(Form $form): Form
     {

@@ -14,28 +14,35 @@ class ActivityTemplateTable
     public static function make(Table $table): Table
     {
         return $table
-                    ->heading(__('activities/activity-template.table.heading'))
+            ->heading(__('tms-ui::activities/activity-template.table.heading'))
+            ->emptyStateHeading(__('tms-ui::activities/activity-template.table.empty_state_heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
+                // title
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('activities/activity-template.table.columns.title.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.title.label'))
                     ->searchable(),
+                // duration
                 Tables\Columns\TextColumn::make('duration')
-                    ->label(__('activities/activity-template.table.columns.duration.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.duration.label')),
+                // man minutes
                 Tables\Columns\TextColumn::make('man_minutes')
-                    ->label(__('activities/activity-template.table.columns.man_minutes.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.man_minutes.label')),
+                // is divisible
                 Tables\Columns\IconColumn::make('is_divisible')
-                    ->label(__('activities/activity-template.table.columns.is_divisible.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.is_divisible.label'))
                     ->boolean(),
                 // Tables\Columns\IconColumn::make('is_standardised')
-                //     ->label(__('activities/activity-template.table.columns..label'))
+                //     ->label(__('tms-ui::activities/activity-template.table.columns..label'))
                 //     ->boolean(),
+                // is catalogised
                 Tables\Columns\IconColumn::make('is_catalogised')
-                    ->label(__('activities/activity-template.table.columns.is_catalogised.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.is_catalogised.label'))
                     ->boolean(),
+                // people
                 Tables\Columns\TextColumn::make('people')
-                    ->label(__('activities/activity-template.table.columns.people.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.people.label')),
                 // Tables\Columns\TextColumn::make('sa1')
                 //     ->label('sa1')
                 //     ->state(function($record, UnitRateService $svc) {                        

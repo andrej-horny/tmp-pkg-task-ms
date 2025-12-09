@@ -1,10 +1,10 @@
 <?php
 
-namespace App\StateTransitions\Fleet\Vehicle;
+namespace Dpb\Package\TaskMS\StateTransitions\Fleet\Vehicle;
 
 use Dpb\Package\Fleet\Models\Vehicle;
-use App\States\Fleet\Vehicle\InService;
-use App\States\Fleet\Vehicle\UnderRepair;
+use Dpb\Package\TaskMS\States\Fleet\Vehicle\InService;
+use Dpb\Package\TaskMS\States\Fleet\Vehicle\UnderRepair;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Spatie\ModelStates\Transition;
 

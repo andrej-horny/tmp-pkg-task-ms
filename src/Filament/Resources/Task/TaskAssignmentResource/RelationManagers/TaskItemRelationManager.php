@@ -4,6 +4,7 @@ namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource\Rela
 
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Forms\TaskItemForm;
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Tables\TaskItemTable;
+use Dpb\Package\TaskMS\Services\CreateTaskItemAssignmentService;
 use Dpb\Package\TaskMS\UseCases\TaskAssignment\AddTaskItemUseCase;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,8 +32,9 @@ class TaskItemRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make()
                     ->modalHeading(__('tms-ui::tasks/task-item.create_heading'))
-                    ->using(function (array $data, AddTaskItemUseCase $uc): ?Model {
-                        return $uc->execute($this->getOwnerRecord()->id, $data);
+                    ->using(function (array $data, CreateTaskItemAssignmentService $tiaCSvc): ?Model {
+                        $taskId = $this->getOwnerRecord()->task->id;
+                        return $tiaCSvc->execute($taskId, $data);
                     })
                     ->modalWidth(MaxWidth::class),
             ]);

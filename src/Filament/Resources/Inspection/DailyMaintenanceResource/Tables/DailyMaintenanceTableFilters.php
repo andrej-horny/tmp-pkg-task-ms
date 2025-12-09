@@ -21,7 +21,7 @@ class DailyMaintenanceTableFilters
             Tables\Filters\Filter::make('date')
                 ->form([
                     DatePicker::make('date')
-                        ->label(__('inspections/daily-maintenance.table.filters.date')),
+                        ->label(__('tms-ui::inspections/daily-maintenance.table.filters.date')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -39,13 +39,13 @@ class DailyMaintenanceTableFilters
                 ->form([
                     ToggleButtons::make('state')
                         ->options([
-                            States\Inspection\Upcoming::$name => __('inspections/inspection.states.upcoming'),
-                            States\Inspection\Overdue::$name => __('inspections/inspection.states.overdue'),
-                            States\Inspection\InProgress::$name => __('inspections/inspection.states.in-progress'),
+                            States\Inspection\Upcoming::$name => __('tms-ui::inspections/inspection.states.upcoming'),
+                            States\Inspection\Overdue::$name => __('tms-ui::inspections/inspection.states.overdue'),
+                            States\Inspection\InProgress::$name => __('tms-ui::inspections/inspection.states.in-progress'),
                         ])
                         ->multiple()
                         ->inline()
-                        ->label(__('inspections/inspection.table.filters.state')),
+                        ->label(__('tms-ui::inspections/inspection.table.filters.state')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -81,7 +81,7 @@ class DailyMaintenanceTableFilters
                         ->getOptionLabelFromRecordUsing(null)
                         ->searchable()
                         ->multiple()
-                        ->label(__('inspections/daily-maintenance.table.filters.subject')),
+                        ->label(__('tms-ui::inspections/daily-maintenance.table.filters.subject')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -102,7 +102,7 @@ class DailyMaintenanceTableFilters
             //             ->options(MaintenanceGroup::pluck('code', 'id'))
             //             ->multiple()
             //             ->inline()
-            //             ->label(__('inspections/daily-maintenance.table.filters.maintenance_group')),
+            //             ->label(__('tms-ui::inspections/daily-maintenance.table.filters.maintenance_group')),
             //     ])
             //     ->query(function (Builder $query, array $data): Builder {
             //         return $query

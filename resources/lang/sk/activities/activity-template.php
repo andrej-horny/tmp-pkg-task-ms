@@ -22,13 +22,16 @@ return [
             'duration' => [
                 'label' => 'Trvanie min',
                 'helper' => 'Hodnota uvádzná v minútach',
-        ],
+            ],
             'man_minutes' => 'Človekominúty',
             'is_divisible' => 'Deliteľná',
             'is_catalogised' => 'Katalogizovaná',
             'people' => 'Počet ľudí',
             'unit_price' => 'Jedn. sadzba',
-            'subject' => 'Model vozidla'
+            'templatable' => [
+                'label' => 'Model vozidla',
+                'hint' => 'Ktorých modelov sa táto norma týka'
+            ]
         ],
     ],
     'table' => [
@@ -52,7 +55,7 @@ return [
         'group' => 'Normy',
     ],
     'page' => [
-        'title'=> 'Norma'
+        'title' => 'Norma'
     ],
     'resource' => [
         'model_label' => 'Norma',

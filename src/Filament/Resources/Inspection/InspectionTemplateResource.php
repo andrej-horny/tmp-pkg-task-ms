@@ -16,22 +16,22 @@ class InspectionTemplateResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('inspections/inspection-template.resource.model_label');
+        return __('tms-ui::inspections/inspection-template.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('inspections/inspection-template.resource.plural_model_label');
+        return __('tms-ui::inspections/inspection-template.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('inspections/inspection-template.navigation.label');
+        return __('tms-ui::inspections/inspection-template.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('inspections/inspection-template.navigation.group');
+        return __('tms-ui::inspections/inspection-template.navigation.group');
     }
 
     public static function getNavigationSort(): ?int

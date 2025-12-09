@@ -21,10 +21,10 @@ return new class extends Migration
                 ->nullable(false)
                 ->comment('')
                 ->constrained($inspectionTablePrefix . 'inspections');
-            $table->unsignedBigInteger('templatable_id')
+            $table->unsignedBigInteger('subject_id')
                 ->nullable(false)
                 ->comment('');
-            $table->string('templatable_type')
+            $table->string('subject_type')
                 ->nullable(false)
                 ->comment('');
             $table->timestamps();

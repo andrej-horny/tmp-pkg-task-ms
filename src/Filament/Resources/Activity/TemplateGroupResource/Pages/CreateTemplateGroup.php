@@ -13,6 +13,6 @@ class CreateTemplateGroup extends CreateRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template-group.form.create_heading');
+        return __('tms-ui::activities/activity-template-group.create_heading');
     }    
 }

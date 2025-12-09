@@ -4,9 +4,7 @@ namespace Dpb\Package\TaskMS\Filament\Resources\Inspection;
 
 use Dpb\Package\TaskMS\Filament\Resources\Inspection\UpcomingInspectionResource\Pages;
 use Dpb\Package\TaskMS\Filament\Resources\Inspection\UpcomingInspectionResource\Tables\UpcomingInspectionAssignmentTable;
-use Dpb\Package\TaskMS\Filament\Resources\Inspection\UpcomingInspectionResource\Tables\UpcomingInspectionTable;
 use Dpb\Package\TaskMS\Models\InspectionAssignment;
-use Dpb\Package\Inspections\Models\Inspection;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -18,22 +16,22 @@ class UpcomingInspectionResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('inspections/upcoming-inspection.resource.model_label');
+        return __('tms-ui::inspections/upcoming-inspection.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('inspections/upcoming-inspection.resource.plural_model_label');
+        return __('tms-ui::inspections/upcoming-inspection.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('inspections/upcoming-inspection.navigation.label');
+        return __('tms-ui::inspections/upcoming-inspection.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('inspections/upcoming-inspection.navigation.group');
+        return __('tms-ui::inspections/upcoming-inspection.navigation.group');
     }
 
     public static function getNavigationSort(): ?int
@@ -57,14 +55,6 @@ class UpcomingInspectionResource extends Resource
     public static function table(Table $table): Table
     {
         return UpcomingInspectionAssignmentTable::make($table);
-        // return UpcomingInspectionTable::make($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

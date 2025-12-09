@@ -14,13 +14,13 @@ class ActivityTemplateGroupForm
         return $form
             ->schema([
                 Forms\Components\TextInput::make('code')
-                    ->label(__('activities/activity-template-group.form.fields.code')),
+                    ->label(__('tms-ui::activities/activity-template-group.form.fields.code')),
                 Forms\Components\TextInput::make('title')
-                    ->label(__('activities/activity-template-group.form.fields.title')),
+                    ->label(__('tms-ui::activities/activity-template-group.form.fields.title')),
                 Forms\Components\TextInput::make('description')
-                    ->label(__('activities/activity-template-group.form.fields.description')),
+                    ->label(__('tms-ui::activities/activity-template-group.form.fields.description')),
                 Forms\Components\Select::make('parent')
-                    ->label(__('activities/activity-template-group.form.fields.parent'))
+                    ->label(__('tms-ui::activities/activity-template-group.form.fields.parent'))
                     // ->relationship('parent', fn($record) => "{$record?->code} - {$record?->title}")
                     ->relationship('parent', 'title')
                     ->searchable()

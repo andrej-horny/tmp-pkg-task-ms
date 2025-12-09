@@ -5,6 +5,7 @@ namespace Dpb\Package\TaskMS\Filament\Resources\Activity\TemplateGroupResource\P
 use Dpb\Package\TaskMS\Filament\Resources\Activity\TemplateGroupResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListTemplateGroups extends ListRecords
 {
@@ -13,7 +14,12 @@ class ListTemplateGroups extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return '';
+    }       
 }

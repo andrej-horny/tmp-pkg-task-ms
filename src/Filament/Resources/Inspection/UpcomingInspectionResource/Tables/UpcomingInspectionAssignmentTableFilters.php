@@ -17,7 +17,7 @@ class UpcomingInspectionAssignmentTableFilters
             Tables\Filters\Filter::make('date')
                 ->form([
                     DatePicker::make('date')
-                        ->label(__('inspections/upcoming-inspection.table.filters.date')),
+                        ->label(__('tms-ui::inspections/upcoming-inspection.table.filters.date')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -53,7 +53,7 @@ class UpcomingInspectionAssignmentTableFilters
                         ->getOptionLabelFromRecordUsing(null)
                         ->searchable()
                         ->multiple()
-                        ->label(__('inspections/upcoming-inspection.table.filters.subject')),
+                        ->label(__('tms-ui::inspections/upcoming-inspection.table.filters.subject')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query

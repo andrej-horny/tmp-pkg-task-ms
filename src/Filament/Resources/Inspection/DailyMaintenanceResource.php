@@ -18,22 +18,22 @@ class DailyMaintenanceResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('inspections/daily-maintenance.resource.model_label');
+        return __('tms-ui::inspections/daily-maintenance.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('inspections/daily-maintenance.resource.plural_model_label');
+        return __('tms-ui::inspections/daily-maintenance.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('inspections/daily-maintenance.navigation.label');
+        return __('tms-ui::inspections/daily-maintenance.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('inspections/daily-maintenance.navigation.group');
+        return __('tms-ui::inspections/daily-maintenance.navigation.group');
     }
 
     public static function getNavigationSort(): ?int
@@ -41,10 +41,10 @@ class DailyMaintenanceResource extends Resource
         return config('pkg-inspections.navigation.daily-maintenance') ?? 999;
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('inspections.daily-maintenance.read');
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('inspections.daily-maintenance.read');
+    // }
 
     public static function form(Form $form): Form
     {

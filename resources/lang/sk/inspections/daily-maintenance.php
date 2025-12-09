@@ -38,6 +38,9 @@ return [
             'state' => 'Stav',
             'maintenance_group' => 'Prevádzka',
         ],
+        'actions' => [
+            'create_daily_maintenance' => 'Vytvoriť'
+        ]
     ],
     'navigation' => [
         'label' => 'Denné ošetrenie',

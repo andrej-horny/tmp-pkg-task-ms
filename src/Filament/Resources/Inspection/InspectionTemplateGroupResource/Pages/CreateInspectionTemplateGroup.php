@@ -13,6 +13,6 @@ class CreateInspectionTemplateGroup extends CreateRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('inspections/inspection-template-group.create_heading');
+        return __('tms-ui::inspections/inspection-template-group.create_heading');
     }    
 }

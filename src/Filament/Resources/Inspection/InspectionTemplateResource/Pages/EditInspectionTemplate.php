@@ -22,7 +22,7 @@ class EditInspectionTemplate extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('inspections/inspection-template.update_heading', ['title' => $this->record->title]);
+        return __('tms-ui::inspections/inspection-template.update_heading', ['title' => $this->record->title]);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array

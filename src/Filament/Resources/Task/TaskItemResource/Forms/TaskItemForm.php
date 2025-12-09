@@ -2,29 +2,14 @@
 
 namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Forms;
 
-use Dpb\Package\TaskMS\Filament\Components\DepartmentPicker;
-use Dpb\Package\TaskMS\Filament\Components\VehiclePicker;
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemGroupResource\Forms\TaskItemGroupPicker;
-use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Forms\ActivityRepeater;
-use Dpb\Package\TaskMS\Filament\Resources\Task\TaskResource\ComponenTask\MaterialRepeater;
-use Dpb\Package\TaskMS\Filament\Resources\Task\TaskResource\ComponenTask\ServiceRepeater;
-use Dpb\Package\TaskMS\Filament\Resources\Task\TaskResource\RelationManagers\TaskItemRelationManager;
-use Dpb\Package\TaskMS\Models\TaskAssignment;
-use Dpb\Package\TaskMS\Services\Activity\Activity\WorkService;
-use Dpb\Package\TaskMS\Services\Task\ActivityService;
-use Dpb\Package\TaskMS\Services\Task\HeaderService;
-use Dpb\Package\TaskMS\Services\Task\SubjecTaskervice;
+use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Components\MaterialRepeater;
+use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Components\ServiceRepeater;
 use Dpb\Package\TaskMS\States\Task\TaskItem\Closed;
 use Dpb\Package\TaskMS\States\Task\TaskItem\Created;
 use Dpb\Package\TaskMS\States\Task\TaskItem\InProgress;
-use Awcodes\TableRepeater\ComponenTask\TableRepeater;
-use Awcodes\TableRepeater\Header;
-use Dpb\Package\Activities\Models\TemplateGroup as ActivityTemplateGroup;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
-use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskItemGroup;
-use Dpb\Package\Tasks\Models\Task;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -55,8 +40,8 @@ class TaskItemForm
             // title
             TaskItemGroupPicker::make('group_id')
                 ->getOptionLabelFromRecordUsing(fn(TaskItemGroup $record) => "{$record->code} {$record->title}")
-                ->relationship('group', 'title')
                 ->columnSpan(2)
+                ->options(fn() => TaskItemGroup::pluck('title', 'id'))
                 ->live(),
             // Forms\Components\Select::make('group_id')
             //     ->label(__('tms-ui::tasks/task-item.form.fields.title'))
@@ -96,12 +81,12 @@ class TaskItemForm
             // supervised by
 
             // activities 
-            self::tabsSection()
-                ->columnSpan(5),
+            // self::tabsSection()
+            //     ->columnSpan(5),
 
-            // history / commenTask
-            self::historySection()
-                ->columnSpan(2),
+            // // history / commenTask
+            // self::historySection()
+            //     ->columnSpan(2),
         ];
     }
 
@@ -158,7 +143,7 @@ class TaskItemForm
                     ->tabs([
                         // commenTask
                         Forms\Components\Tabs\Tab::make('commenTask_tab')
-                            ->label(__('tms-ui::tasks/task-item.form.tabs.commenTask'))
+                            ->label(__('tms-ui::tasks/task-item.form.tabs.comments'))
                             ->badge(3)
                             ->icon('heroicon-m-wrench')
                             ->schema([

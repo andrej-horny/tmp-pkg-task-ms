@@ -5,6 +5,7 @@ namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource\Form
 use Dpb\Package\TaskMS\Filament\Components\VehiclePicker;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Tasks\Models\TaskGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -26,14 +27,26 @@ class TaskAssignmentForm
                             ->default(now()),
                         // subject
                         self::subjectField(),
+                        // group
+                        Forms\Components\ToggleButtons::make('task.group_id')
+                            ->label(__('tms-ui::tasks/task.form.fields.group'))
+                            ->columnSpan(3)
+                            ->options(fn() => TaskGroup::pluck('title', 'id')                           )
+                            ->live()
+                            // ->extraAttributes([
+                            //     'x-data' => '{}',
+                            //     'x-on:input.debounce.500' => 'console.log($event.target.value)',
+                            // ])
+                            // ->default(fn (Get $get) => Vehicle::with('maintenanceGroup')->findSole($get('subject_id'))->maintenance_group_id ?? null)
+                            ->required()
+                            ->inline(),
+                        // Forms\Components\Select::make('task.group_id')
+                        //     ->label(__('tms-ui::tasks/task.form.fields.group'))
+                        //     ->relationship('task.group', 'title')
+                        //     ->required()
+                        //     ->live(),
                         // assigned to e.g. maintenance group
                         self::assignedToField(),
-                        // group
-                        Forms\Components\Select::make('task.group_id')
-                            ->label(__('tms-ui::tasks/task.form.fields.group'))
-                            ->relationship('task.group', 'title')
-                            ->required()
-                            ->live(),
                         // source
                         // self::sourceField(),
                         // description

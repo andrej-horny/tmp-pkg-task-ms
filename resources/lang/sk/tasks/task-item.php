@@ -57,7 +57,7 @@ return [
             'description' => 'Popis',
             'state' => 'Stav',
             'subject' => 'Vozidlo',
-            'ticket' => 'Zákazka',
+            'task' => 'Zákazka',
             'assigned_to' => [
                 'label' => 'TP',
                 'tooltip' => 'Technická prevádzka'

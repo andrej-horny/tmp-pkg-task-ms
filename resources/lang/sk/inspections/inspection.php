@@ -34,7 +34,9 @@ return [
             'state' => 'Stav',
             'maintenance_group' => 'Prevádzka',
         ],
-
+        'actions' => [
+            'create_task' => 'Vytvoriť zákazku'
+        ]
     ],
     'navigation' => [
         'label' => 'Kontroly',

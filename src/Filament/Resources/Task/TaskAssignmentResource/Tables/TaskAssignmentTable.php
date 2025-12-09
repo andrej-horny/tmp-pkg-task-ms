@@ -79,11 +79,11 @@ class TaskAssignmentTable
                 // assigned to / maintenance group
                 Tables\Columns\TextColumn::make('assignedTo.code')
                     ->badge()
-                    ->label(__('tms-ui::tasks/task.table.columns.assigned_to')),
-                    // ->tooltip(__('tms-ui::tasks/task.table.columns.assigned_to')),
+                    ->label(__('tms-ui::tasks/task.table.columns.assigned_to.label'))
+                    ->tooltip(__('tms-ui::tasks/task.table.columns.assigned_to.tooltip')),
                 // place of occurance / task source
-                Tables\Columns\TextColumn::make('task.source.title')
-                    ->label(__('tms-ui::tasks/task.table.columns.source')),
+                Tables\Columns\TextColumn::make('task.placeOfOrigin.title')
+                    ->label(__('tms-ui::tasks/task.table.columns.place_of_origin')),
                 // Tables\Columns\TextColumn::make('department')
                 //     ->label(__('tms-ui::tasks/task.table.columns.department.label'))
                 //     ->state(function (HeaderService $svc, $record) {
@@ -147,6 +147,7 @@ class TaskAssignmentTable
             ])
             ->actions([
                 // Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
                 // EditAction::make()
             ])
             ->bulkActions([

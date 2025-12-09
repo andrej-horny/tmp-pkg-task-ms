@@ -4,6 +4,11 @@ return [
     'create_heading' => 'Vytvoriť skupinu podzákazky',
     'list_heading' => 'Skupiny podzákazok',
     'update_heading' => 'Upraviť skupinu podzákazky: :title',
+    'components' => [
+        'picker' => [
+            'label' => 'Skupina podzákazky'
+        ]
+    ],
     'form' => [
         'fields' => [
             'code' => [

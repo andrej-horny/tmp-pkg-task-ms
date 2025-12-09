@@ -20,7 +20,7 @@ class TaskMSServiceProvider extends PackageServiceProvider
                 '0003_create_tms_activity_assignments_table',
                 // '0004_create_tms_work_assignments_table',
                 '0006_create_tms_department_assignments_table',
-                '0007_create_tms_inspection_assignments_table',
+                '0007_create_tms_inspection_assignments_tables',
                 '0009_create_tms_task_assignments_table',
                 '0010_create_tms_dispatch_reports_table',
                 '0011_create_tms_ticket_assignments_table',

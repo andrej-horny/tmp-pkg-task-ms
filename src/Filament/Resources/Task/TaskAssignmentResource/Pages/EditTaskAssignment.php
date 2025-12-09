@@ -2,15 +2,18 @@
 
 namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource\Pages;
 
+use Dpb\Package\TaskMS\Commands\Task\UpdateTaskCommand;
 use Dpb\Package\TaskMS\Commands\TaskAssignment\TaskCommand;
 use Dpb\Package\TaskMS\Commands\TaskAssignment\UpdateTaskAssignmentCommand;
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource;
+use Dpb\Package\TaskMS\Handlers\Task\UpdateTaskHandler;
 use Dpb\Package\TaskMS\Handlers\TaskAssignment\UpdateTaskAssignmentHandler;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Dpb\Package\TaskMS\States;
+use Illuminate\Support\Facades\DB;
 
 class EditTaskAssignment extends EditRecord
 {
@@ -26,8 +29,8 @@ class EditTaskAssignment extends EditRecord
     public function getTitle(): string | Htmlable
     {
         return __('tms-ui::tasks/task.update_heading', ['title' => $this->record->getTitleAttribute()]);
-    }  
-    
+    }
+
     protected function mutateFormDataBeforeFill(array $data): array
     {
         // $data['subject_id'] = Dpb\Package\TaskMS(TaskAssignment::class)->whereBelongsTo($this->record)->first()?->subject?->id;
@@ -43,29 +46,36 @@ class EditTaskAssignment extends EditRecord
         // dd($activities);
         return $data;
     }
-  
+
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $taskData = $data['task'];
-        $taskCmd = new TaskCommand(
-            $record->task->id,
-            new \DateTimeImmutable($taskData['date']),
-            null,
-            $taskData['description'] ?? null,
-            $taskData['group_id'],
-            States\Task\Task\Created::$name,
-        );
-        $taCmd = new UpdateTaskAssignmentCommand(
-            $record->id,
-            $taskCmd,
-            $data['subject_id'],
-            'vehicle',
-            null,
-            null,
-            $data['assigned_to_id'] ?? null,
-            isset($data['assigned_to_id']) ? 'maintenance-group' : null
-        );
+        return DB::transaction(function () use ($record, $data) {
+            // update task
+            $taskData = $data['task'];
+            $task = app(UpdateTaskHandler::class)->handle(
+                new UpdateTaskCommand(
+                    $record->task->id,
+                    new \DateTimeImmutable($taskData['date']),
+                    null,
+                    $taskData['description'] ?? null,
+                    $taskData['group_id'],
+                    States\Task\Task\Created::$name,
+                )
+            );
 
-        return app(UpdateTaskAssignmentHandler::class)->handle($taCmd);
+            // update task assignment
+            return app(UpdateTaskAssignmentHandler::class)->handle(
+                new UpdateTaskAssignmentCommand(
+                    $record->id,
+                    $task->id,
+                    $data['subject_id'],
+                    'vehicle',
+                    null,
+                    null,
+                    $data['assigned_to_id'] ?? null,
+                    isset($data['assigned_to_id']) ? 'maintenance-group' : null
+                )
+            );
+        });
     }
 }

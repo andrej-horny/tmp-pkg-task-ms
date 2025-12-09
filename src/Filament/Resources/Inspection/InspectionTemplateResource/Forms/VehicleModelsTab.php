@@ -16,7 +16,7 @@ class VehicleModelsTab
     {
         return [
             Forms\Components\CheckboxList::make('vehicle_models')
-                ->label(__('inspections/inspection-template.form.fields.vehicle_models'))
+                ->label(__('tms-ui::inspections/inspection-template.form.fields.vehicle_models'))
                 ->options(function () {
                     return VehicleModel::get()
                         ->mapWithKeys(fn($vehicle) => [

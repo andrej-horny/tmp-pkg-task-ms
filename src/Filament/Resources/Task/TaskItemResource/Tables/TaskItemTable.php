@@ -2,28 +2,12 @@
 
 namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Tables;
 
-use Dpb\Package\TaskMS\Filament\Resources\Task\TaskResource\RelationManagers\TaskItemRelationManager;
-use Dpb\Package\TaskMS\Models\ActivityAssignment;
-use Dpb\Package\TaskMS\Models\TaskAssignment;
+use Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource\RelationManagers\TaskItemRelationManager;
 use Dpb\Package\TaskMS\Models\TaskItemAssignment;
-use Dpb\Package\TaskMS\Models\WorkAssignment;
-use Dpb\Package\TaskMS\Services\Activity\Activity\WorkService;
-use Dpb\Package\TaskMS\Services\Task\ActivityService;
-use Dpb\Package\TaskMS\Services\Task\CreateTickeTaskervice;
-use Dpb\Package\TaskMS\Services\Task\HeaderService;
-use Dpb\Package\TaskMS\Services\Task\SubjecTaskervice;
-use Dpb\Package\TaskMS\Services\Task\TaskAssignmenTaskervice;
 use Dpb\Package\TaskMS\States;
-use Dpb\Package\TaskMS\StateTransitions\Task\TaskItem\CreatedToInProgress;
-use Dpb\Package\TaskMS\StateTransitions\Task\TaskItem\InProgressToCancelled;
-use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskItem;
-use Filament\Support\Colors\Color;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class TaskItemTable
 {
@@ -35,12 +19,12 @@ class TaskItemTable
             ->emptyStateDescription(__('tms-ui::tasks/task.relation_manager.task_items.table.empty_state_description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
-                States\Task\Task\Created::$name => 'bg-blue-200',
-                States\Task\Task\Closed::$name => 'bg-green-200',
-                States\Task\Task\Cancelled::$name => 'bg-gray-50',
-                States\Task\Task\InProgress::$name => 'bg-yellow-200',
-                States\Task\TaskItem\AwaitingParTask::$name => 'bg-red-200',
+            ->recordClasses(fn($record) => match ($record->state) {
+                States\Task\TaskItem\Created::$name => 'bg-blue-200',
+                States\Task\TaskItem\Closed::$name => 'bg-green-200',
+                States\Task\TaskItem\Cancelled::$name => 'bg-gray-50',
+                States\Task\TaskItem\InProgress::$name => 'bg-yellow-200',
+                States\Task\TaskItem\AwaitingParts::$name => 'bg-red-200',
                 default => null,
             })
             // ->groups([
@@ -52,29 +36,35 @@ class TaskItemTable
             ->columns([
                 // task id
                 // Tables\Columns\TextColumn::make('task.id')
-                //     ->label(__('tms-ui::tasks/task-item.table.columns.task.label'))
+                //     ->label(__('tms-ui::tasks/task-item.table.columns.task'))
                 //     ->tooltip(fn(TaskItem $record) => $record?->task?->title)
                 //     ->badge(),
                 // task item code id
                 Tables\Columns\TextColumn::make('code')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.code.label'))
+                    ->label(__('tms-ui::tasks/task-item.table.columns.code'))
                     ->grow(false),
                 Tables\Columns\TextColumn::make('date')->date()
-                    ->label(__('tms-ui::tasks/task-item.table.columns.date.label'))
+                    ->label(__('tms-ui::tasks/task-item.table.columns.date'))
                     ->grow(false),
                 // Tables\Columns\TextColumn::make('parent.id')
-                //     ->label(__('tms-ui::tasks/task-item.table.columns.parent.label')),
+                //     ->label(__('tms-ui::tasks/task-item.table.columns.parent')),
                 // title 
                 Tables\Columns\TextColumn::make('group.title')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.group.label')),
+                    ->label(__('tms-ui::tasks/task-item.table.columns.group')),
                 // Tables\Columns\TextColumn::make('title')
-                //     ->label(__('tms-ui::tasks/task-item.table.columns.title.label')),
+                //     ->label(__('tms-ui::tasks/task-item.table.columns.title')),
                 Tables\Columns\TextColumn::make('description')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.description.label'))
+                    ->label(__('tms-ui::tasks/task-item.table.columns.description'))
                     ->grow(),
-                Tables\Columns\TextColumn::make('state')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.state.label'))
-                    ->state(fn(TaskItem $record) => $record?->state?->label()),
+                Tables\Columns\SelectColumn::make('state')
+                    ->label(__('tms-ui::tasks/task-item.table.columns.state'))
+                    // ->state(fn(TaskItem $record) => $record?->state?->label())
+                    ->options([
+                        States\Task\TaskItem\Created::$name => __('tms-ui::tasks/task.states.created'),
+                        States\Task\TaskItem\Closed::$name => __('tms-ui::tasks/task.states.closed'),
+                        States\Task\TaskItem\Cancelled::$name => __('tms-ui::tasks/task.states.cancelled'),
+                        States\Task\TaskItem\InProgress::$name => __('tms-ui::tasks/task.states.in-progress'),
+                    ]),
                 // ->state(fn($record) => dd($record)),
                 // ->action(
                 //     Action::make('select')
@@ -86,21 +76,21 @@ class TaskItemTable
                 //         }),
                 // ),
                 // TextColumn::make('department.code'),
-                Tables\Columns\TextColumn::make('subject')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.subject.label'))
-                    ->state(function (TaskItem $record, TaskAssignmenTaskervice $svc) {
-                        if ($record->task !== null) {
-                            return $svc->geTaskubject($record->task)?->code?->code;
-                        }
-                    })
+                Tables\Columns\TextColumn::make('subject.code.code')
+                    ->label(__('tms-ui::tasks/task-item.table.columns.subject'))
+                    // ->state(function (TaskItem $record, TaskAssignmenTaskervice $svc) {
+                    //     if ($record->task !== null) {
+                    //         return $svc->geTaskubject($record->task)?->code?->code;
+                    //     }
+                    // })
                     ->hiddenOn(TaskItemRelationManager::class),
-                Tables\Columns\TextColumn::make('source')
-                    ->label(__('tms-ui::tasks/task-item.table.columns.source.label'))
-                    ->state(function (TaskItem $record, TaskAssignmenTaskervice $svc) {
-                        if ($record->task !== null) {
-                            return $svc->geTaskourceLabel($record->task);
-                        }
-                    })
+                Tables\Columns\TextColumn::make('source.title')
+                    ->label(__('tms-ui::tasks/task-item.table.columns.source'))
+                    // ->state(function (TaskItem $record, TaskAssignmenTaskervice $svc) {
+                    //     if ($record->task !== null) {
+                    //         return $svc->geTaskourceLabel($record->task);
+                    //     }
+                    // })
                     ->hiddenOn(TaskItemRelationManager::class)
                     ->badge(),
                 Tables\Columns\TextColumn::make('assigned_to')
@@ -114,7 +104,7 @@ class TaskItemTable
                         default => '#333'
                     }),
                 // Tables\Columns\TextColumn::make('activities')
-                //     ->label(__('tms-ui::tasks/task-item.table.columns.activities.label'))
+                //     ->label(__('tms-ui::tasks/task-item.table.columns.activities'))
                 //     ->tooltip(__('tms-ui::tasks/task-item.table.columns.activities.tooltip'))
                 //     ->state(function ($record, ActivityService $svc, WorkService $workService) {
                 //         // $result = $svc->getActivities($record)?->map(function ($activity) use ($workService) {

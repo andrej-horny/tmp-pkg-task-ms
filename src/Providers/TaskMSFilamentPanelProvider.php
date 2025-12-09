@@ -46,10 +46,11 @@ class TaskMSFilamentPanelProvider extends PanelProvider
                 Resources\Ticket\TicketAssignmentResource::class,
                 Resources\Ticket\TicketTypeResource::class,
                 // inspections
-                // Resources\Inspection\InspectionResource::class,
-                // Resources\Inspection\InspectionTemplateGroupResource::class,
-                // Resources\Inspection\InspectionTemplateResource::class,
-                // Resources\Inspection\UpcomingInspectionResource::class,
+                Resources\Inspection\InspectionAssignmentResource::class,
+                Resources\Inspection\DailyMaintenanceResource::class,
+                Resources\Inspection\InspectionTemplateGroupResource::class,
+                Resources\Inspection\InspectionTemplateResource::class,
+                Resources\Inspection\UpcomingInspectionResource::class,
                 // // fleet
                 Resources\Fleet\MaintenanceGroupResource::class,
                 Resources\Fleet\VehicleResource::class,

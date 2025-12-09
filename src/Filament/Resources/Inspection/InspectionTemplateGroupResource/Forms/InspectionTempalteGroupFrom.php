@@ -22,23 +22,23 @@ class InspectionTempalteGroupFrom
         return [
             // code
             Forms\Components\TextInput::make('code')
-                ->label(__('inspections/inspection-template-group.form.fields.code.label'))
-                ->hint(__('inspections/inspection-template-group.form.fields.code.hint')),
+                ->label(__('tms-ui::inspections/inspection-template-group.form.fields.code.label'))
+                ->hint(__('tms-ui::inspections/inspection-template-group.form.fields.code.hint')),
             // title
             Forms\Components\TextInput::make('title')
                 ->columnSpan(1)
-                ->label(__('inspections/inspection-template-group.form.fields.title')),
+                ->label(__('tms-ui::inspections/inspection-template-group.form.fields.title')),
             // description
             Forms\Components\TextInput::make('description')
                 ->columnSpan(1)
-                ->label(__('inspections/inspection-template-group.form.fields.description')),
+                ->label(__('tms-ui::inspections/inspection-template-group.form.fields.description')),
             // template
             // InspectionTemplatePicker::make('template_id')
-            //     ->label(__('inspections/inspection.form.fields.template'))
+            //     ->label(__('tms-ui::inspections/inspection.form.fields.template'))
             //     ->relationship('template', 'title'),
             // // subject
             //     Forms\Components\Select::make('subject_id')
-            //         ->label(__('inspections/inspection.form.fields.subject'))
+            //         ->label(__('tms-ui::inspections/inspection.form.fields.subject'))
             //         ->options(Vehicle::with('model')->get()
             //             ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model?->title])
             //         )

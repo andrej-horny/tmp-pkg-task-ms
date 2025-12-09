@@ -9,7 +9,7 @@ class TaskItemGroupPicker
     public static function make(string $uri)
     {
         return Forms\Components\Select::make($uri)
-            ->label(__('tms-ui::tasks/task-item-group.componenTask.picker.label'))
+            ->label(__('tms-ui::tasks/task-item-group.components.picker.label'))
             ->searchable()
             ->preload()
             ->createOptionForm(TaskItemGroupForm::schema())

@@ -20,7 +20,7 @@ class EditInspectionTemplateGroup extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('inspections/inspection-template-group.update_heading', ['title' => $this->record->title]);
+        return __('tms-ui::inspections/inspection-template-group.update_heading', ['title' => $this->record->title]);
     }
 
 }

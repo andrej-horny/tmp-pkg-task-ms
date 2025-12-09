@@ -13,7 +13,7 @@ return [
             'group' => 'Typ zákazky',
             'subject' => 'Vozidlo',
             'assigned_to' => 'Technická prevádzka',
-            'place_of_occurrence' => 'Miesto výskytu',
+            'place_of_origin' => 'Miesto výskytu',
             'department' => 'Stredisko',
         ],
         'sections' => [
@@ -36,7 +36,10 @@ return [
             'description' => 'Popis',
             'state' => 'Stav',
             'subject' => 'Vozidlo',
-            'assigned_to' => 'Technická prevádzka',
+            'assigned_to' => [
+                'label' => 'TP',
+                'tooltip' => 'Technická prevádzka',
+            ],
             'department' => 'Stredisko',
             'group' => 'Typ zákazky',
             'activities' => [
@@ -44,7 +47,7 @@ return [
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
             'source' => 'Miesto výskytu',
-            'place_of_occurrence' => 'Miesto výskytu',
+            'place_of_origin' => 'Miesto výskytu',
             'parent' => 'Patrí pod',
             'total_expenses' => 'Náklady'
         ],

@@ -21,7 +21,7 @@ class EditActivityTemplate extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template.form.update_heading', ['title' => $this->record->title]);
+        return __('tms-ui::activities/activity-template.update_heading', ['title' => $this->record->title]);
     }
 
     protected function mutateFormDataBeforeFill(array $data): array

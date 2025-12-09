@@ -13,6 +13,7 @@ class TicketAssignmentTable
     {
         return $table
             ->heading(__('tms-ui::tickets/ticket.table.heading'))
+            ->emptyStateHeading(__('tms-ui::tickets/ticket.table.empty_state_heading'))
             ->description(__('tms-ui::tickets/ticket.table.description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
