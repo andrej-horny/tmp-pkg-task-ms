@@ -8,7 +8,7 @@ return [
         'fields' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
+            'year' => ['label' => 'Rokčník'],
             'type' => ['label' => 'Typ'],
         ],
         'tabs' => [
@@ -25,16 +25,21 @@ return [
         'columns' => [
             'brand' => ['label' => 'Výrobca'],
             'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
+            'year' => ['label' => 'Rokčník'],
             'length' => ['label' => 'Dĺžka m'],
             'type' => ['label' => 'Typ'],
+            'fuel_consumption' => ['label' => 'Spotreba'],
+            'seats' => [
+                'label' => 'Poč. sedadiel',
+                'tooltip' => 'Celkový počet sedadiel',
+            ],
         ],
         'filters' => [
-            'brand' => ['label' => 'Výrobca'],
-            'title' => ['label' => 'Názov'],
-            'year' => ['label' => 'Rok výroby'],
-            'length' => ['label' => 'Dĺžka m'],
-            'type' => ['label' => 'Typ'],
+            'brand' => 'Výrobca',
+            'title' => 'Názov',
+            'year' => 'Rokčník',
+            'length' => 'Dĺžka m',
+            'type' => 'Typ',
         ],
         'actions' => [
             'bulk_set_brand' => 'Priradiť výrobcu',

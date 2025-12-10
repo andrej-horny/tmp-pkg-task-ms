@@ -39,6 +39,49 @@ return [
                 'hint' => 'V km',
             ]            
         ],
+        'tabs' => [
+            'parameters' => 'Vlastnosti',
+            'fuel' => 'Tankovanie',
+            'travel_log' => 'Km',
+            'tires' => 'Pneumatiky',
+            'documents' => 'Dokumenty',
+            'fillings' => 'Náplne',
+            'insurance_events' => 'Poistné udalosti',
+            'special_events' => 'Mimoriadne udalosti',
+            'inspections' => [
+                'heading' => 'Kontroly',
+                'empty_state_heading' => '',
+                'columns' => [
+                    'date' => 'Dátum',
+                    'template' => 'Typ kontroly',
+                    'distance' => 'KM',
+                    'state' => 'Stav kontroly',
+                    'maintenance_group' => [
+                        'label' => 'TP',
+                        'tooltip' => 'Technciká prevádzka',
+                    ],
+                ]
+            ],
+            'malfunctions' => [
+                'heading' => 'Poruchy',
+                'empty_state_heading' => '',
+                'columns' => [
+                    'date' => 'Dátum',
+                    'template' => 'Typ poruchy',
+                    'place_of_origin' => 'Miesto výskytu',
+                    'state' => 'Stav poruchy',
+                    'in_warranty' => 'V záruke',
+                    'time' => [
+                        'label' => 'Hodín',
+                        'tooltip' => 'Hodín',
+                    ],
+                    'expenses' => [
+                        'label' => 'Náklady',
+                        'tooltip' => 'Náklady',
+                    ]
+                ]
+            ],            
+        ],
     ],
     'table' => [
         'heading' => 'Vozidlá',

@@ -27,7 +27,7 @@ class ListVehicleStatusReportsPage extends Page implements HasTable
 
     public function getTitle(): string | Htmlable
     {
-        return __('reports/vehicle-status-report.list_heading');
+        return __('tms-ui::reports/vehicle-status-report.list_heading');
     }
 
     public function table(Table $table): Table

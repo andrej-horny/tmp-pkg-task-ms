@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť typ vozidla',
+    'list_heading' => 'Typy vozidiel',
+    'update_heading' => 'Upraviť typ vozidila: :title',
     'components' => [
         'picker' => [
             'label' => 'Typ vozidla',
@@ -8,9 +11,6 @@ return [
             'update_heading' => 'Upraviť typ vozidila: :title',
         ],
     ],
-    'create_heading' => 'Vytvoriť typ vozidla',
-    'list_heading' => 'Typy vozidiel',
-    'update_heading' => 'Upraviť typ vozidila: :title',
     'form' => [
         'fields' => [
             'code' => [
@@ -19,6 +19,10 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'title' => 'Názov',
+            'vehicle_models' => [
+                'label' => 'Modely vozidiel',
+                'hint' => 'Modely vozidiel daného typu vozidla'
+            ],
         ],
     ],
     'table' => [

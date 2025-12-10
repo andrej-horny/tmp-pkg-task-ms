@@ -2,6 +2,7 @@
 
 namespace Dpb\Package\TaskMS\Models;
 
+use App\Models\User;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

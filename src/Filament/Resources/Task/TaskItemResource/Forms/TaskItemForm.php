@@ -81,12 +81,12 @@ class TaskItemForm
             // supervised by
 
             // activities 
-            // self::tabsSection()
-            //     ->columnSpan(5),
+            self::tabsSection()
+                ->columnSpan(5),
 
-            // // history / commenTask
-            // self::historySection()
-            //     ->columnSpan(2),
+            // // history / comments
+            self::historySection()
+                ->columnSpan(2),
         ];
     }
 
@@ -101,7 +101,7 @@ class TaskItemForm
                     ->icon('heroicon-m-wrench')
                     ->schema([
                         Forms\Components\Section::make('TO DO')
-                             ->description('TO DO: pripravujeme. Toto bude integrované s fondom pracovného času')
+                            ->description('TO DO: pripravujeme. Toto bude integrované s fondom pracovného času')
                         // ActivityRepeater::make('activities')
                         //     ->label(__('tms-ui::tasks/task-item.form.fields.activities.title'))
                         // ->relationship('activities'),
@@ -134,34 +134,24 @@ class TaskItemForm
                     ])
             ]);
     }
-    private static function historySection(): Forms\Components\Section
+    private static function historySection()
     {
-        return Forms\Components\Section::make('TO DO')
-            ->description('TO DO: pripravujeme. ')
-            ->schema([
-                Forms\Components\Tabs::make('commenTask_tabs')
-                    ->tabs([
-                        // commenTask
-                        Forms\Components\Tabs\Tab::make('commenTask_tab')
-                            ->label(__('tms-ui::tasks/task-item.form.tabs.comments'))
-                            ->badge(3)
-                            ->icon('heroicon-m-wrench')
-                            ->schema([
-                                Forms\Components\TextInput::make('h1')->readOnly()->placeholder('...')->hiddenLabel(),
-                                Forms\Components\TextInput::make('h2')->readOnly()->placeholder('...')->hiddenLabel(),
-                                Forms\Components\RichEditor::make('body')->disabled()->hiddenLabel(),
-                                // ->addable(false)
-                            ]),
-                        // history
-                        Forms\Components\Tabs\Tab::make('history_tab')
-                            ->label(__('tms-ui::tasks/task-item.form.tabs.history'))
-                            ->icon('heroicon-m-rectangle-stack')
-                            ->badge(2)
-                            ->schema([
-                                Forms\Components\TextInput::make('h1')->readOnly()->placeholder('...')->hiddenLabel(),
-                                Forms\Components\TextInput::make('h2')->readOnly()->placeholder('...')->hiddenLabel(),
-                                Forms\Components\TextInput::make('h3')->readOnly()->placeholder('...')->hiddenLabel(),
-                            ]),
+        return Forms\Components\Tabs::make('history_tabs')
+            ->tabs([
+                // activities
+                Forms\Components\Tabs\Tab::make('comments_tab')
+                    ->label(__('tms-ui::tasks/task-item.form.tabs.comments'))
+                    ->schema([
+                        Forms\Components\Section::make('TO DO')
+                            ->description('TO DO: pripravujeme. ')
+                            ->schema([]),
+                    ]),
+                Forms\Components\Tabs\Tab::make('history_tab')
+                    ->label(__('tms-ui::tasks/task-item.form.tabs.history'))
+                    ->schema([
+                        Forms\Components\Section::make('TO DO')
+                            ->description('TO DO: pripravujeme. ')
+                            ->schema([]),
                     ]),
             ]);
     }

@@ -7,6 +7,7 @@ use Dpb\Package\Fleet\Models\DispatchGroup;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleModel;
+use Dpb\Package\ZS\Presentation\Filament\Resources\Inspection\InspectionResource\Tables\InspectionTable;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Tabs;
@@ -35,7 +36,7 @@ class VehicleForm
                     ->label(__('tms-ui::fleet/vehicle.form.fields.vin')),
                 // model
                 Forms\Components\Select::make('model_id')
-                    ->columnSpan(3)
+                    ->columnSpan(2)
                     ->label(__('tms-ui::fleet/vehicle.form.fields.model'))
                     ->relationship('model', 'title')
                     ->preload()
@@ -75,13 +76,13 @@ class VehicleForm
                             ->label(__('tms-ui::fleet/vehicle.form.fields.maintenance_group'))
                             ->inline()
                             ->options(
-                                function(Get $get) {
+                                function (Get $get) {
                                     $vehicleModel = VehicleModel::find($get('model_id'));
 
-                                    return MaintenanceGroup::when($vehicleModel !== null, function($q) use ($vehicleModel) {
+                                    return MaintenanceGroup::when($vehicleModel !== null, function ($q) use ($vehicleModel) {
                                         $q->byVehicleType($vehicleModel->type?->code);
                                     })
-                                    ->pluck('code', 'id');
+                                        ->pluck('code', 'id');
                                 }
                             ),
                         // department
@@ -108,7 +109,60 @@ class VehicleForm
                         //                     ->inline()
                         //                     ->options(fn() => DispatchGroup::pluck('code')),
                     ]),
-            ])
-        ;
+
+                // parametres tabs
+                self::propertiesTabs()
+                    ->columnSpanFull()
+
+            ]);
+    }
+
+    private static function propertiesTabs()
+    {
+        return Forms\Components\Tabs::make('Tabs')
+            ->columnSpanFull()
+            ->tabs([
+                // inspections
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.inspections.heading'))
+                    ->schema(fn($record) => [
+                        Forms\Components\ViewField::make('inspections_table')
+                            ->view('tms-ui::filament.forms.fleet.vehicle.inspections-table', [
+                                'record' => $record
+                            ]),
+                    ]),
+                // malfunctions
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.malfunctions.heading'))
+                    ->schema(fn($record) => [
+                        Forms\Components\ViewField::make('malfunctions_table')
+                            ->view('tms-ui::filament.forms.fleet.vehicle.malfunctions-table', [
+                                'record' => $record
+                            ]),
+                    ]),
+                // parameters
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.parameters'))
+                    ->schema(self::toDoSection()),
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.fuel'))
+                    ->schema(self::toDoSection()),
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.fillings'))
+                    ->schema(self::toDoSection()),                    
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.travel_log'))
+                    ->schema(self::toDoSection()),
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.tires'))
+                    ->schema(self::toDoSection()),
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.special_events'))
+                    ->schema(self::toDoSection()),                    
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.insurance_events'))
+                    ->schema(self::toDoSection()),                    
+                Forms\Components\Tabs\Tab::make(__('tms-ui::fleet/vehicle.form.tabs.documents'))
+                    ->schema(self::toDoSection()),                    
+            ]);
+    }
+
+    private static function toDoSection(): array
+    {
+        return [
+            Forms\Components\Section::make('TO DO')
+                ->description('TO DO: pripravujeme.')
+        ];
     }
 }

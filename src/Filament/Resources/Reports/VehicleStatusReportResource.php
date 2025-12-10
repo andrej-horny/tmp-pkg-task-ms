@@ -22,28 +22,28 @@ class VehicleStatusReportResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('reports/vehicle-status-report.resource.model_label');
+        return __('tms-ui::reports/vehicle-status-report.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('reports/vehicle-status-report.resource.plural_model_label');
+        return __('tms-ui::reports/vehicle-status-report.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('reports/vehicle-status-report.navigation.label');
+        return __('tms-ui::reports/vehicle-status-report.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('reports/vehicle-status-report.navigation.group');
+        return __('tms-ui::reports/vehicle-status-report.navigation.group');
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('reports.vehicle-status-reports');
-    }
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->user()->can('reports.vehicle-status-reports');
+    // }
 
     public static function table(Table $table): Table
     {

@@ -24,7 +24,8 @@ class VehicleTypeForm
                 ->label(__('tms-ui::fleet/vehicle-type.form.fields.title')),
             // models
             Forms\Components\CheckboxList::make('models')
-                ->label(__('tms-ui::fleet/vehicle-type.form.fields.models'))
+                ->label(__('tms-ui::fleet/vehicle-type.form.fields.vehicle_models.label'))
+                ->hint(__('tms-ui::fleet/vehicle-type.form.fields.vehicle_models.hint'))
                 ->options(function () {
                     return VehicleModel::get()
                         ->mapWithKeys(fn($vehicleModel) => [

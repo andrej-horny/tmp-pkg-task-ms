@@ -14,14 +14,14 @@ class VehicleStatusReportTableFilters
         return [
             // model
             Tables\Filters\SelectFilter::make('vehicle.model')
-                ->label(__('reports/vehicle-status-report.table.filters.model'))
+                ->label(__('tms-ui::reports/vehicle-status-report.table.filters.model'))
                 ->relationship('vehicle.model', 'title')
                 ->searchable()
                 ->multiple()
                 ->preload(),
             // state
             // Tables\Filters\SelectFilter::make('state')
-            //     ->label(__('reports/vehicle-status-report.table.columns.state'))
+            //     ->label(__('tms-ui::reports/vehicle-status-report.table.columns.state'))
             //     ->searchable()
             //     ->multiple()
             //     ->preload()
@@ -32,7 +32,7 @@ class VehicleStatusReportTableFilters
             //     ]),
             // maintenance group
             // Tables\Filters\SelectFilter::make('vehicle.maintenanceGroup')
-            //     ->label(__('reports/vehicle-status-report.table.columns.maintenance_group.label'))
+            //     ->label(__('tms-ui::reports/vehicle-status-report.table.columns.maintenance_group.label'))
             //     ->relationship('vehicle.maintenanceGroup', 'title')
             //     ->searchable()
             //     ->preload()

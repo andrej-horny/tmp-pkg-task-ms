@@ -14,16 +14,21 @@ class MaintenanceGroupTable
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->columns([
+                // code
                 Tables\Columns\TextColumn::make('code')
                     ->label(__('tms-ui::fleet/maintenance-group.table.columns.code')),
+                // title
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('tms-ui::fleet/maintenance-group.table.columns.title')),
-                Tables\Columns\TextColumn::make('description')
-                    ->label(__('tms-ui::fleet/maintenance-group.table.columns.description')),
-                // Tables\Columns\ColorColumn::make('color')
-                //     ->label(__('tms-ui::fleet/maintenance-group.table.columns.color')),
+                // vehicle type
                 Tables\Columns\TextColumn::make('vehicleType.title')
                     ->label(__('tms-ui::fleet/maintenance-group.table.columns.vehicle_type')),
+                // description
+                Tables\Columns\TextColumn::make('description')
+                    ->label(__('tms-ui::fleet/maintenance-group.table.columns.description'))
+                    ->grow(),
+                // Tables\Columns\ColorColumn::make('color')
+                //     ->label(__('tms-ui::fleet/maintenance-group.table.columns.color')),
             ])
             ->filters([
                 //

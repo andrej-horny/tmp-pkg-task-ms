@@ -38,8 +38,10 @@ class VehicleModelTable
                         return $record->getAttrValue('length');
                     })
                     ->numeric(decimalPlaces: 2),
-
-                // TextColumn::make('seats'),
+// seats
+                Tables\Columns\TextColumn::make('seats')
+                    ->label(__('tms-ui::fleet/vehicle-model.table.columns.seats.label'))
+                    ->tooltip(__('tms-ui::fleet/vehicle-model.table.columns.seats.tooltip')),
                 // TextColumn::make('fuel_consumption'),
                 // TextColumn::make('length')
                 //     ->state(function ($record) {
@@ -56,15 +58,7 @@ class VehicleModelTable
                 //     }),
                 // ->state(function($record) {return print_r($record->attributeValues());}),
             ])
-            ->filters([
-                // // vehicle-brand
-                // Tables\Filters\SelectFilter::make('vehicle-brand')
-                //     ->label(__('tms-ui::fleet/vehicle-model.table.filters.vehicle-brand.label'))
-                //     ->relationship('vehicle-brand', 'title')
-                //     ->preload()
-                //     ->multiple()
-                //     ->searchable(),
-            ])
+            ->filters(VehicleModelTableFilters::make())
             // ], layout: FiltersLayout::AboveContentCollapsible)
             ->headerActions([
             //     ImportAction::make()
@@ -73,7 +67,7 @@ class VehicleModelTable
             //         ->visible(auth()->user()->can('fleet.vehicle-model.import'))
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
                     ->visible(auth()->user()->can('fleet.vehicle-model.update')),
                 Tables\Actions\DeleteAction::make()

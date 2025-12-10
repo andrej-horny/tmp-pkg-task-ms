@@ -19,7 +19,7 @@ class TaskItemTable
             ->emptyStateDescription(__('tms-ui::tasks/task.relation_manager.task_items.table.empty_state_description'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state) {
+            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
                 States\Task\TaskItem\Created::$name => 'bg-blue-200',
                 States\Task\TaskItem\Closed::$name => 'bg-green-200',
                 States\Task\TaskItem\Cancelled::$name => 'bg-gray-50',
@@ -103,6 +103,7 @@ class TaskItemTable
                         '1TPA' => '#888',
                         default => '#333'
                     }),
+                    
                 // Tables\Columns\TextColumn::make('activities')
                 //     ->label(__('tms-ui::tasks/task-item.table.columns.activities'))
                 //     ->tooltip(__('tms-ui::tasks/task-item.table.columns.activities.tooltip'))
@@ -154,7 +155,7 @@ class TaskItemTable
                 //
             ])
             ->actions([
-                ViewAction::make(),
+                // ViewAction::make(),
                 EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

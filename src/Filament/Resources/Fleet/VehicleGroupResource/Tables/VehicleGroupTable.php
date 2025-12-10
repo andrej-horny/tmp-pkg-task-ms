@@ -23,7 +23,8 @@ class VehicleGroupTable
                     ->searchable(),
                 // description
                 Tables\Columns\TextColumn::make('description')
-                    ->label(__('tms-ui::fleet/vehicle-group.table.columns.description')),
+                    ->label(__('tms-ui::fleet/vehicle-group.table.columns.description'))
+                    ->grow(),
             ])
             ->filters([
                 //
@@ -43,7 +44,7 @@ class VehicleGroupTable
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
+                    // Tables\Actions\DeleteBulkAction::make()
                     // ->visible(auth()->user()->can('fleet.vehicle-group.bulk-delete')),
                 ]),
             ]);

@@ -11,7 +11,7 @@ class BulkSetBrandAction
     public static function make($uri): BulkAction
     {
         return BulkAction::make($uri)
-            ->label(__('tms-ui::fleet/vehicle-model.table.actions.bulk_set_vehicle-brand'))
+            ->label(__('tms-ui::fleet/vehicle-model.table.actions.bulk_set_brand'))
             ->form([
                 BrandPicker::make('vehicle_brand_id')
                     ->relationship('brand', 'title')
