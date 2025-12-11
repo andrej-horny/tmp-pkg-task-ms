@@ -4,18 +4,13 @@ namespace Dpb\Package\TaskMS\Filament\Resources\Task\TaskAssignmentResource\Rela
 
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Forms\TaskItemForm;
 use Dpb\Package\TaskMS\Filament\Resources\Task\TaskItemResource\Tables\TaskItemTable;
-use Dpb\Package\TaskMS\Services\CreateTaskItemAssignmentService;
-use Dpb\Package\TaskMS\UseCases\TaskAssignment\AddTaskItemUseCase;
-use Filament\Forms;
+use Dpb\Package\TaskMS\Workflows\AddTaskItemWorkflow;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\Enums\MaxWidth;
-use Filament\Tables;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TaskItemRelationManager extends RelationManager
 {
@@ -32,7 +27,7 @@ class TaskItemRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make()
                     ->modalHeading(__('tms-ui::tasks/task-item.create_heading'))
-                    ->using(function (array $data, CreateTaskItemAssignmentService $tiaCSvc): ?Model {
+                    ->using(function (array $data, AddTaskItemWorkflow $tiaCSvc): ?Model {
                         $taskId = $this->getOwnerRecord()->task->id;
                         return $tiaCSvc->execute($taskId, $data);
                     })

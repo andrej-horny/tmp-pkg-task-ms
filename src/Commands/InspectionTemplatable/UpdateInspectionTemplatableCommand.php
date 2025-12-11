@@ -6,7 +6,7 @@ final readonly class UpdateInspectionTemplatableCommand
 {
     public function __construct(
         public int $id,
-        public int $inspectionId,
+        public int $templateId,
         public int $templatableId,
         public string $templatableType,
     ) {}

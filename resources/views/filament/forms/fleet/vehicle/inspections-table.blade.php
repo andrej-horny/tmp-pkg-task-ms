@@ -1,1 +1,0 @@
-<livewire:tables.fleet.vehicle.inspections :vehicle="$record" />

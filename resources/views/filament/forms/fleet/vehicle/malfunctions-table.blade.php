@@ -1,1 +1,0 @@
-<livewire:tables.fleet.vehicle.malfunctions :vehicle="$record" />
