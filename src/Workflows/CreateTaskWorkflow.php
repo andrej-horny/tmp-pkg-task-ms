@@ -7,7 +7,6 @@ use Dpb\Package\TaskMS\Commands\TaskAssignment\CreateTaskAssignmentCommand;
 use Dpb\Package\TaskMS\Handlers\Task\CreateTaskHandler;
 use Dpb\Package\TaskMS\Handlers\TaskAssignment\CreateTaskAssignmentHandler;
 use Illuminate\Database\Eloquent\Model;
-use Dpb\Package\TaskMS\States;
 use Illuminate\Support\Facades\DB;
 
 class CreateTaskWorkflow
@@ -30,29 +29,6 @@ class CreateTaskWorkflow
                 ->handle($taskAssignmentCCmd->withRelations($task->id, null, null));
 
             return $taskAssignment;
-        });
-    }
-
-    public function createFromForm(array $data): Model
-    {
-        return DB::transaction(function () use ($data) {
-            // create task
-            $task = $this->taskCHdl->handle(
-                new CreateTaskCommand(
-                    new \DateTimeImmutable($data['date']),
-                    $data['template_id'] ?? null,
-                    States\Task\Upcoming::$name,
-                )
-            );
-
-            // create task assignment
-            return $this->taskAssignmentCHdl->handle(
-                new CreateTaskAssignmentCommand(
-                    $task->id,
-                    $data['subject_id'],
-                    'vehicle',
-                )
-            );
         });
     }
 }

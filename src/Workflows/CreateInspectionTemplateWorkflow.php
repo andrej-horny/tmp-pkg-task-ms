@@ -2,7 +2,6 @@
 
 namespace Dpb\Package\TaskMS\Workflows;
 
-use Dpb\Package\TaskMS\Commands\InspectionTemplatable\CreateInspectionTemplatableCommand;
 use Dpb\Package\TaskMS\Commands\InspectionTemplate\CreateInspectionTemplateCommand;
 use Dpb\Package\TaskMS\Handlers\InspectionTemplatable\CreateInspectionTemplatableHandler;
 use Dpb\Package\TaskMS\Handlers\InspectionTemplate\CreateInspectionTemplateHandler;

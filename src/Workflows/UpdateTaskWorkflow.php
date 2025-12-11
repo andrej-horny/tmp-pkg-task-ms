@@ -32,27 +32,4 @@ class UpdateTaskWorkflow
             return $taskAssignment;
         });
     }
-
-    public function createFromForm(array $data): Model
-    {
-        return DB::transaction(function () use ($data) {
-            // create task
-            $task = $this->taskCHdl->handle(
-                new UpdateTaskCommand(
-                    new \DateTimeImmutable($data['date']),
-                    $data['template_id'] ?? null,
-                    States\Task\Upcoming::$name,
-                )
-            );
-
-            // create task assignment
-            return $this->taskAssignmentCHdl->handle(
-                new UpdateTaskAssignmentCommand(
-                    $task->id,
-                    $data['subject_id'],
-                    'vehicle',
-                )
-            );
-        });
-    }
 }
