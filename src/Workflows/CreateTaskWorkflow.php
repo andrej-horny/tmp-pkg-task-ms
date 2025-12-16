@@ -4,6 +4,7 @@ namespace Dpb\Package\TaskMS\Workflows;
 
 use Dpb\Package\TaskMS\Commands\Task\CreateTaskCommand;
 use Dpb\Package\TaskMS\Commands\TaskAssignment\CreateTaskAssignmentCommand;
+use Dpb\Package\TaskMS\Data\DTOs\CreateTaskAssignmentDTO;
 use Dpb\Package\TaskMS\Handlers\Task\CreateTaskHandler;
 use Dpb\Package\TaskMS\Handlers\TaskAssignment\CreateTaskAssignmentHandler;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class CreateTaskWorkflow
             // create task assignment
             $taskAssignment = $this
                 ->taskAssignmentCHdl
-                ->handle($taskAssignmentCCmd->withRelations($task->id, null, null));
+                ->handle(CreateTaskAssignmentDTO::fromCreateCommand($taskAssignmentCCmd->withRelations($task->id, null, null)));
 
             return $taskAssignment;
         });

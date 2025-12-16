@@ -48,7 +48,7 @@ class CreateTaskFromInspectionWorkflow
             // dd($placeOfOriginId);
             $assigneeId = $record->subject->maintenanceGroup?->id;
             $assigneeType = ($assigneeId !== null) ? 'maintenance-group' : null;
-            $taskSource = $this->taskSourceResolver->resolve($record->getMorphClass(), $record->id);
+            $taskSource = $this->taskSourceResolver->resolve($record->inspection->getMorphClass(), $record->inspection->id);
             $taskSubject = $this->taskSubjectResolver->resolve($record->subject_type, $record->subject_id);
             return $this->taskAssignmentCHdl->handle(
                 CreateTaskAssignmentDTO::fromInspectionCommand(
