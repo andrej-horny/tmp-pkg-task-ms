@@ -2,8 +2,11 @@
 
 namespace Dpb\Package\TaskMS\Models;
 
+use App\Models\User;
+use Dpb\Package\TaskMS\Contracts\TaskAssignmentSubjectLabelResolver;
 use Dpb\Package\TaskMS\Models\Datahub\Department;
 use Dpb\Package\TaskMS\Models\Datahub\EmployeeContract;
+use Dpb\Package\TaskMS\Resolvers\TaskSubjectLabelResolver;
 use Dpb\Package\Tasks\Models\Task;
 use Dpb\Package\Tasks\Models\TaskItem;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +36,16 @@ class TaskAssignment extends Model
         'subject_id',
         'subject_type',
     ];
+
+    protected static TaskSubjectLabelResolver $subjectLabelResolver;
+
+    public static function booted()
+    {
+        parent::booted();
+
+        // Inject resolver from the app container
+        self::$subjectLabelResolver = app(TaskSubjectLabelResolver::class);
+    }
 
     public function getTable()
     {
@@ -90,7 +103,16 @@ class TaskAssignment extends Model
             ->implode('');
         $date = $this->task->date->format('ymd');
         $subject = $this->subject->code?->code;
-        
+
         return join('-', [$taskGroupShort, $date, $subject]);
+    }
+
+    public function getSubjectLabelAttribute(): string
+    {
+        if (!isset(self::$resolver)) {
+            throw new \LogicException('Resolver not set');
+        }
+
+        return self::$subjectLabelResolver->getLabel($this->subject);
     }
 }

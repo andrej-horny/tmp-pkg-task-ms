@@ -2,11 +2,16 @@
 
 namespace Dpb\Package\TaskMS\Workflows;
 
+use Dpb\Package\Fleet\Entities\MaintenanceGroup;
 use Dpb\Package\TaskMS\Commands\Task\CreateTaskCommand;
+use Dpb\Package\TaskMS\Commands\TaskAssignment\CreateFromInspectionCommand;
 use Dpb\Package\TaskMS\Commands\TaskAssignment\CreateTaskAssignmentCommand;
+use Dpb\Package\TaskMS\Data\DTOs\CreateTaskAssignmentDTO;
 use Dpb\Package\TaskMS\Handlers\Task\CreateTaskHandler;
 use Dpb\Package\TaskMS\Handlers\TaskAssignment\CreateTaskAssignmentHandler;
 use Dpb\Package\TaskMS\Models\InspectionAssignment;
+use Dpb\Package\TaskMS\Resolvers\TaskSourceResolver;
+use Dpb\Package\TaskMS\Resolvers\TaskSubjectResolver;
 use Illuminate\Database\Eloquent\Model;
 use Dpb\Package\TaskMS\States;
 use Dpb\Package\Tasks\Models\PlaceOfOrigin;
@@ -18,6 +23,8 @@ class CreateTaskFromInspectionWorkflow
     public function __construct(
         private CreateTaskHandler $taskCHdl,
         private CreateTaskAssignmentHandler $taskAssignmentCHdl,
+        private TaskSubjectResolver $taskSubjectResolver,
+        private TaskSourceResolver $taskSourceResolver,
     ) {}
 
     public function createFromInspectionAssignment(InspectionAssignment $record): Model
@@ -39,16 +46,22 @@ class CreateTaskFromInspectionWorkflow
 
             // create task assignment
             // dd($placeOfOriginId);
+            $assigneeId = $record->subject->maintenanceGroup?->id;
+            $assigneeType = ($assigneeId !== null) ? 'maintenance-group' : null;
+            $taskSource = $this->taskSourceResolver->resolve($record->getMorphClass(), $record->id);
+            $taskSubject = $this->taskSubjectResolver->resolve($record->subject_type, $record->subject_id);
             return $this->taskAssignmentCHdl->handle(
-                new CreateTaskAssignmentCommand(
-                    $task->id,
-                    $record->subject_id,
-                    'vehicle',
-                    $record->inspection->id,
-                    $record->inspection->getMorphClass(),
-                    auth()->user()->id,
-                    $record->subject->maintenanceGroup->id,
-                    $record->subject->maintenanceGroup->getMorphClass()
+                CreateTaskAssignmentDTO::fromInspectionCommand(
+                    new CreateFromInspectionCommand(
+                        $task->id,
+                        $taskSubject->id,
+                        $taskSubject->morphClass,
+                        $taskSource->id,
+                        $taskSource->morphClass,
+                        auth()->user()->id,
+                        $assigneeId,
+                        $assigneeType
+                    )
                 )
             );
         });
